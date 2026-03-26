@@ -1,0 +1,25 @@
+"use client";
+
+import { useEffect } from "react";
+import { ErrorFallback } from "@repo/ui/errors/error-fallback";
+
+interface ErrorProps {
+  error: Error & { digest?: string };
+  reset: () => void;
+}
+
+export default function TemplateDetailError({ error, reset }: ErrorProps) {
+  useEffect(() => {
+    console.error("Template detail error:", error);
+  }, [error]);
+
+  return (
+    <ErrorFallback
+      description="An error occurred while loading this template."
+      environment="development"
+      error={error}
+      reset={reset}
+      title="Unable to load template"
+    />
+  );
+}
