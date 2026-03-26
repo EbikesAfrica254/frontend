@@ -1,0 +1,75 @@
+{
+  "$schema": "https://turborepo.com/schema.json",
+  "ui": "tui",
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "outputs": [".next/**", "!.next/cache/**"],
+      "env": [
+        "AUTH_TRUST_HOST",
+        "DEPLOY_ENV",
+        "HOSTNAME",
+        "IAM_SERVICE_BASE_URL",
+        "KEYCLOAK_CLIENT_ID",
+        "KEYCLOAK_ISSUER",
+        "KEYCLOAK_MAX_SESSION_AGE",
+        "MAKER_CHECKER_SERVICE_BASE_URL",
+        "NEXTAUTH_DEFAULT_REDIRECT",
+        "NEXT_RUNTIME",
+        "NEXTAUTH_URL",
+        "NEXTAUTH_URL_INTERNAL",
+        "NEXT_OTEL_VERBOSE",
+        "NEXT_TELEMETRY_DISABLED",
+        "NODE_ENV",
+        "NOTIFICATIONS_SERVICE_BASE_URL",
+        "ORDERS_SERVICE_BASE_URL",
+        "ORGANIZATIONS_SERVICE_BASE_URL",
+        "OTEL_EXPORTER_OTLP_ENDPOINT",
+        "OTEL_SERVICE_NAME",
+        "S3_CSP_ORIGIN_ORDERS",
+        "S3_CSP_ORIGIN_ORGANIZATIONS",
+        "S3_CSP_ORIGIN_WORKFORCE",
+        "WHITELISTED_EMAIL_DOMAINS",
+        "WORKFORCE_SERVICE_BASE_URL"
+      ]
+    },
+    "check-types": {
+      "dependsOn": ["^check-types"]
+    },
+    "lint": {
+      "dependsOn": ["^lint"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true,
+      "env": [
+        "AUTH_TRUST_HOST",
+        "DEPLOY_ENV",
+        "HOSTNAME",
+        "IAM_SERVICE_BASE_URL",
+        "KEYCLOAK_CLIENT_ID",
+        "KEYCLOAK_ISSUER",
+        "KEYCLOAK_MAX_SESSION_AGE",
+        "MAKER_CHECKER_SERVICE_BASE_URL",
+        "NEXTAUTH_DEFAULT_REDIRECT",
+        "NEXT_RUNTIME",
+        "NEXTAUTH_URL",
+        "NEXTAUTH_URL_INTERNAL",
+        "NEXT_OTEL_VERBOSE",
+        "NEXT_TELEMETRY_DISABLED",
+        "NODE_ENV",
+        "NOTIFICATIONS_SERVICE_BASE_URL",
+        "ORDERS_SERVICE_BASE_URL",
+        "ORGANIZATIONS_SERVICE_BASE_URL",
+        "OTEL_EXPORTER_OTLP_ENDPOINT",
+        "OTEL_SERVICE_NAME",
+        "S3_CSP_ORIGIN_ORDERS",
+        "S3_CSP_ORIGIN_ORGANIZATIONS",
+        "S3_CSP_ORIGIN_WORKFORCE",
+        "WHITELISTED_EMAIL_DOMAINS",
+        "WORKFORCE_SERVICE_BASE_URL"
+      ]
+    }
+  }
+}
