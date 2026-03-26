@@ -1,0 +1,5 @@
+export const CURRENT_TERMS_VERSION = "1.0.0";
+export const CURRENT_PRIVACY_VERSION = "1.0.0";
+
+export const POLICY_EFFECTIVE_DATE = "2025-01-01T00:00:00Z";
+export const POLICY_LAST_UPDATED = "2025-01-15T00:00:00Z";
