@@ -1,0 +1,193 @@
+/**
+ * Ops App - Global Styles
+ *
+ * Tailwind v4 CSS-first configuration
+ * Order matters: imports first, then directives, then configuration
+ */
+
+/* ============================================================================
+   STEP 1: All @import statements MUST come first
+   ============================================================================ */
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "@repo/ui/styles/globals.css";
+
+/* ============================================================================
+   STEP 2: Content sources for Tailwind to scan
+   ============================================================================ */
+@source "../../../../packages/ui/src";
+
+/* ============================================================================
+   STEP 3: Configure Tailwind Theme
+   ============================================================================ */
+@theme {
+    /* Map design system variables to Tailwind utilities */
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+    --color-popover: var(--popover);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-destructive: var(--destructive);
+    --color-destructive-foreground: var(--destructive-foreground);
+    --color-border: var(--border);
+    --color-input: var(--input);
+    --color-ring: var(--ring);
+    --color-chart-1: var(--chart-1);
+    --color-chart-2: var(--chart-2);
+    --color-chart-3: var(--chart-3);
+    --color-chart-4: var(--chart-4);
+    --color-chart-5: var(--chart-5);
+    --radius-sm: calc(var(--radius) - 4px);
+    --radius-md: calc(var(--radius) - 2px);
+    --radius-lg: var(--radius);
+    --radius-xl: calc(var(--radius) + 4px);
+    --color-sidebar: var(--sidebar);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-ring: var(--sidebar-ring);
+
+    /* Sidebar dimensions */
+    --sidebar-width: 16rem;
+    --sidebar-width-icon: 3rem;
+    --sidebar-width-mobile: 18rem;
+
+    /* Ops App Brand Colors - Override design system defaults */
+    --color-primary: oklch(0.52 0.13 142);
+    --color-primary-foreground: oklch(0.985 0 0);
+    --color-accent: oklch(0.52 0.03 142 / 0.1);
+    --color-accent-foreground: oklch(0.52 0.13 142);
+    --color-sidebar-primary: oklch(0.52 0.13 142);
+    --color-sidebar-primary-foreground: oklch(0.985 0 0);
+    --color-sidebar-accent: oklch(0.52 0.03 142 / 0.15);
+    --color-sidebar-accent-foreground: oklch(0.52 0.13 142);
+}
+
+/* ============================================================================
+   STEP 4: Dark Mode Configuration
+   ============================================================================ */
+@custom-variant dark (&:is(.dark *));
+
+@variant dark {
+    /* Ops App Dark Mode Brand Colors */
+    --color-primary: oklch(0.65 0.13 142);
+    --color-primary-foreground: oklch(0.145 0 0);
+    --color-accent: oklch(0.52 0.13 142 / 0.15);
+    --color-accent-foreground: oklch(0.85 0.13 142);
+    --color-sidebar-primary: oklch(0.65 0.13 142);
+    --color-sidebar-primary-foreground: oklch(0.145 0 0);
+    --color-sidebar-accent: oklch(0.52 0.13 142 / 0.2);
+    --color-sidebar-accent-foreground: oklch(0.85 0.13 142);
+}
+
+/* ============================================================================
+   STEP 5: Custom Sidebar Variants
+   ============================================================================ */
+@variant group-data-state-expanded (.group[data-state="expanded"] &);
+@variant group-data-state-collapsed (.group[data-state="collapsed"] &);
+@variant group-data-collapsible-icon (.group[data-collapsible="icon"] &);
+@variant group-data-collapsible-offcanvas (.group[data-collapsible="offcanvas"] &);
+@variant group-data-side-left (.group[data-side="left"] &);
+@variant group-data-side-right (.group[data-side="right"] &);
+@variant group-data-variant-floating (.group[data-variant="floating"] &);
+@variant group-data-variant-inset (.group[data-variant="inset"] &);
+@variant peer-data-state-collapsed (.peer[data-state="collapsed"] ~ &);
+@variant peer-data-variant-inset (.peer[data-variant="inset"] ~ &);
+
+/* ============================================================================
+   STEP 6: Base Layer Utilities
+   ============================================================================ */
+@layer base {
+    * {
+        @apply border-border outline-ring/50;
+    }
+
+    body {
+        @apply bg-background text-foreground;
+    }
+
+    .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border-width: 0;
+    }
+
+    .focus\:not-sr-only:focus {
+        position: static;
+        width: auto;
+        height: auto;
+        padding: inherit;
+        margin: inherit;
+        overflow: visible;
+        clip: auto;
+        white-space: normal;
+    }
+}
+
+/* ============================================================================
+   STEP 7: Sidebar-Specific Utilities
+   ============================================================================ */
+@layer utilities {
+    .w-\(--sidebar-width\) {
+        width: var(--sidebar-width);
+    }
+
+    .w-\(--sidebar-width-icon\) {
+        width: var(--sidebar-width-icon);
+    }
+
+    .group[data-collapsible="icon"] [data-slot="sidebar-gap"],
+    .group[data-collapsible="icon"] [data-slot="sidebar-container"] {
+        width: var(--sidebar-width-icon);
+    }
+
+    .group[data-collapsible="offcanvas"] [data-slot="sidebar-gap"] {
+        width: 0;
+    }
+
+    .group[data-collapsible="offcanvas"][data-side="left"] [data-slot="sidebar-container"] {
+        left: calc(var(--sidebar-width) * -1);
+    }
+
+    .group[data-collapsible="offcanvas"][data-side="right"] [data-slot="sidebar-container"] {
+        right: calc(var(--sidebar-width) * -1);
+    }
+
+    .group[data-collapsible="icon"] [data-sidebar="menu-button"]:not([data-sidebar="footer"] *, [data-sidebar="header"] *) > span:not(.sr-only),
+    .group[data-collapsible="icon"] [data-sidebar="menu-button"]:not([data-sidebar="footer"] *, [data-sidebar="header"] *) > div,
+    .group[data-collapsible="icon"] [data-sidebar="menu-button"]:not([data-sidebar="footer"] *, [data-sidebar="header"] *) > svg.ml-auto,
+    .group[data-collapsible="icon"] [data-sidebar="group-label"] {
+        display: none;
+    }
+
+    .group[data-collapsible="icon"] [data-sidebar="footer"] [data-sidebar="menu-button"] > div:not(:first-child),
+    .group[data-collapsible="icon"] [data-sidebar="header"] [data-sidebar="menu-button"] > div:not(:first-child),
+    .group[data-collapsible="icon"] [data-sidebar="footer"] [data-sidebar="menu-button"] > svg.ml-auto,
+    .group[data-collapsible="icon"] [data-sidebar="header"] [data-sidebar="menu-button"] > svg.ml-auto {
+        display: none;
+    }
+
+    .group[data-collapsible="icon"] [data-sidebar="menu-button"] {
+        width: 2rem;
+        height: 2rem;
+        padding: 0.5rem;
+        justify-content: center;
+    }
+
+    .group[data-collapsible="icon"] [data-sidebar="footer"] [data-sidebar="menu-button"],
+    .group[data-collapsible="icon"] [data-sidebar="header"] [data-sidebar="menu-button"] {
+        width: 2.5rem;
+        height: 2.5rem;
+        justify-content: center;
+    }
+}
