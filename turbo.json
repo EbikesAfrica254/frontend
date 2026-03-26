@@ -6,6 +6,10 @@
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": [".next/**", "!.next/cache/**"],
+      "passThroughEnv": [
+        "KEYCLOAK_CLIENT_SECRET",
+        "NEXTAUTH_SECRET"
+      ],
       "env": [
         "AUTH_TRUST_HOST",
         "DEPLOY_ENV",
@@ -42,6 +46,10 @@
     },
     "dev": {
       "cache": false,
+      "passThroughEnv": [
+        "KEYCLOAK_CLIENT_SECRET",
+        "NEXTAUTH_SECRET"
+      ],
       "persistent": true,
       "env": [
         "AUTH_TRUST_HOST",

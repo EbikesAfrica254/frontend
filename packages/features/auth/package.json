@@ -1,0 +1,46 @@
+{
+  "name": "@repo/features-auth",
+  "version": "1.0.0",
+  "private": true,
+  "exports": {
+    "./client": {
+      "types": "./src/client.ts",
+      "import": "./src/client.ts"
+    },
+    "./routes/federated-logout": {
+      "types": "./src/routes/federated-logout.ts",
+      "import": "./src/routes/federated-logout.ts"
+    },
+    "./server": {
+      "types": "./src/server.ts",
+      "import": "./src/server.ts"
+    }
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@repo/shared": "workspace:*",
+    "@repo/ui": "workspace:*",
+    "jsonwebtoken": "^9.0.2",
+    "server-only": "^0.0.1"
+  },
+  "peerDependencies": {
+    "next": "16.1.7",
+    "next-auth": "4.24.13",
+    "react": "^19.0.0"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@types/jsonwebtoken": "^9.0.7",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "eslint": "^9",
+    "next": "16.1.7",
+    "next-auth": "4.24.13",
+    "react": "^19.0.0",
+    "typescript": "^5"
+  }
+}
