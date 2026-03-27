@@ -29,7 +29,7 @@ Secrets are never baked into images. Each authenticated app reads Docker Swarm s
 ## Applications
 
 | App           | Purpose              | Dev port | Production host             |
-|---------------|----------------------|----------|-----------------------------|
+| ------------- | -------------------- | -------- | --------------------------- |
 | `apps/client` | Customer portal      | 3000     | `app.ebikesafrica.co.ke`    |
 | `apps/ops`    | Operations dashboard | 3001     | `ops.ebikesafrica.co.ke`    |
 | `apps/agents` | Field agent PWA      | 3002     | `agents.ebikesafrica.co.ke` |
@@ -38,7 +38,7 @@ Secrets are never baked into images. Each authenticated app reads Docker Swarm s
 ## Packages
 
 | Package                           | Purpose                                                      |
-|-----------------------------------|--------------------------------------------------------------|
+| --------------------------------- | ------------------------------------------------------------ |
 | `packages/ui`                     | Shared component library — shadcn/ui primitives, Tailwind v4 |
 | `packages/shared`                 | Utilities, hooks, types, server helpers                      |
 | `packages/features/auth`          | NextAuth v4 configuration and session utilities              |
@@ -56,7 +56,7 @@ Secrets are never baked into images. Each authenticated app reads Docker Swarm s
 ## Platform Context
 
 | Relationship      | Service               | How                                                                               |
-|-------------------|-----------------------|-----------------------------------------------------------------------------------|
+| ----------------- | --------------------- | --------------------------------------------------------------------------------- |
 | Authenticates via | Keycloak              | OAuth2 / OIDC — all authenticated apps use NextAuth v4 with the Keycloak provider |
 | Calls             | IAM service           | User profiles, memberships, roles                                                 |
 | Calls             | Orders service        | Order lifecycle                                                                   |
@@ -71,7 +71,7 @@ Secrets are never baked into images. Each authenticated app reads Docker Swarm s
 ## Tech Stack
 
 | Concern         | Technology                                          |
-|-----------------|-----------------------------------------------------|
+| --------------- | --------------------------------------------------- |
 | Language        | TypeScript 5.9                                      |
 | Framework       | Next.js 16 (App Router)                             |
 | UI              | React 19, shadcn/ui, Tailwind CSS v4                |
@@ -86,7 +86,7 @@ Secrets are never baked into images. Each authenticated app reads Docker Swarm s
 ## Prerequisites
 
 | Tool    | Version | Notes                            |
-|---------|---------|----------------------------------|
+| ------- | ------- | -------------------------------- |
 | Node.js | 22+     | Use `nvm` or `fnm`               |
 | pnpm    | 10.32.1 | `npm install -g pnpm@10.32.1`    |
 | Docker  | 20.10+  | Required to build images locally |
@@ -144,7 +144,7 @@ docker build \
 ## Environments & Deployment
 
 | Environment  | Trigger                                | Image tag       |
-|--------------|----------------------------------------|-----------------|
+| ------------ | -------------------------------------- | --------------- |
 | `dev`        | Push to `dev` (after quality gate)     | `dev` + `sha-*` |
 | `staging`    | Push to `staging` (after quality gate) | `staging`       |
 | `production` | Release Please semver tag              | `vX.Y.Z`        |
