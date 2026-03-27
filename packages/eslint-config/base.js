@@ -27,6 +27,13 @@ export const config = [
         },
     },
     {
+        settings: {
+            react: {
+                version: "19",
+            },
+        },
+    },
+    {
         ignores: ["dist/**"],
     },
 ];
