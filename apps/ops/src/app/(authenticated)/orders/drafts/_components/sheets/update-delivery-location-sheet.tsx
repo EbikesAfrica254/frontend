@@ -17,7 +17,10 @@ import type {
   DraftDetailResponse,
   UpdateDeliveryLocationFormData,
 } from "@repo/features-orders/client";
-import { UpdateDeliveryLocationForm } from "@repo/features-orders/client";
+import {
+  DraftItemCard,
+  UpdateDeliveryLocationForm,
+} from "@repo/features-orders/client";
 
 interface UpdateDeliveryLocationSheetProps {
   open: boolean;
@@ -61,11 +64,18 @@ export function UpdateDeliveryLocationSheet({
         <SheetHeader>
           <SheetTitle>Update Delivery Location</SheetTitle>
           <SheetDescription>
-            Update the delivery location for draft{" "}
-            <strong>{draft.externalReference}</strong>. Only allowed for drafts
+            Update the delivery location for this draft. Only allowed for drafts
             in CREATED status.
           </SheetDescription>
         </SheetHeader>
+
+        {draft.items.length > 0 && (
+          <div className="space-y-2">
+            {draft.items.map((item) => (
+              <DraftItemCard key={item.id} item={item} />
+            ))}
+          </div>
+        )}
 
         <UpdateDeliveryLocationForm draft={draft} onSubmit={handleSubmit} />
 
