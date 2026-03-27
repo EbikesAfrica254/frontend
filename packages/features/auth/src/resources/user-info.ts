@@ -1,20 +1,20 @@
-import type {KeycloakUserInfo} from "../types/keycloak";
-import {getAuthEnvConfiguration} from "../utilities/env-helpers";
+import type { KeycloakUserInfo } from "../types/keycloak";
+import { getAuthEnvConfiguration } from "../utilities/env-helpers";
 
 export async function fetchUserInfo(
-    accessToken: string,
+  accessToken: string,
 ): Promise<KeycloakUserInfo> {
-    const {issuer} = getAuthEnvConfiguration();
+  const { issuer } = getAuthEnvConfiguration();
 
-    const response = await fetch(`${issuer}/protocol/openid-connect/userinfo`, {
-        headers: {
-            Authorization: `Bearer ${accessToken}`,
-        },
-    });
+  const response = await fetch(`${issuer}/protocol/openid-connect/userinfo`, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
 
-    if (!response.ok) {
-        throw new Error(`Failed to fetch user info: ${response.statusText}`);
-    }
+  if (!response.ok) {
+    throw new Error(`Failed to fetch user info: ${response.statusText}`);
+  }
 
-    return response.json();
+  return response.json();
 }
