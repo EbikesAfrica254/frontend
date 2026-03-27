@@ -1,74 +1,96 @@
-import NextAuth, { AuthOptions } from "next-auth";
-import { authOptions } from "@repo/features-auth/server";
-import { nextAuthSecret, whitelistedEmailDomains } from "@/lib/env";
+import "server-only";
+
+import type { NextRequest } from "next/server";
+import NextAuth, { type AuthOptions } from "next-auth";
+import Keycloak from "next-auth/providers/keycloak";
 import {
+  createAuthOptions,
   getAuthEnvConfiguration,
   validateEmailDomain,
 } from "@repo/features-auth/server";
-import Keycloak from "next-auth/providers/keycloak";
-import { JWT } from "next-auth/jwt";
+import type { AuthToken } from "@repo/features-auth/server";
 
-const { clientId, clientSecret, issuer } = getAuthEnvConfiguration();
+export const dynamic = "force-dynamic";
 
-export const opsAuthOptions: AuthOptions = {
-  ...authOptions,
-  callbacks: {
-    ...authOptions.callbacks,
-    async signIn({ user, account, profile }) {
-      if (account?.provider === "keycloak") {
-        const email = user.email || profile?.email;
-        try {
-          const isAllowed = validateEmailDomain(email, whitelistedEmailDomains);
-          if (!isAllowed) {
-            console.warn(`Access denied: ${email}`);
+function buildHandler() {
+  const { clientId, clientSecret, issuer } = getAuthEnvConfiguration();
+  const base = createAuthOptions();
+
+  const whitelistedEmailDomains = (process.env.WHITELISTED_EMAIL_DOMAINS ?? "")
+    .split(",")
+    .filter(Boolean);
+
+  const opsAuthOptions: AuthOptions = {
+    ...base,
+    providers: [
+      Keycloak({
+        clientId,
+        clientSecret,
+        issuer,
+        authorization: {
+          params: { prompt: "login" },
+        },
+      }),
+    ],
+    callbacks: {
+      ...base.callbacks,
+      async signIn({ user, account, profile }) {
+        if (account?.provider === "keycloak") {
+          const email = user.email || profile?.email;
+          try {
+            const isAllowed = validateEmailDomain(
+              email,
+              whitelistedEmailDomains,
+            );
+            if (!isAllowed) {
+              console.warn(`Access denied: ${email}`);
+              return false;
+            }
+          } catch (error) {
+            console.error("Validation error:", error);
             return false;
           }
-        } catch (error) {
-          console.error(`Validation error:`, error);
-          return false;
         }
-      }
-      return true;
-    },
-    async jwt({ token, account, user }): Promise<JWT> {
-      const baseToken = await authOptions.callbacks?.jwt?.({
-        token,
-        account,
-        user,
-      });
-
-      if (!baseToken) {
-        return token;
-      }
-
-      return baseToken;
-    },
-    async session({ session, token }) {
-      session.accessToken = token.accessToken;
-      session.aud = token.aud;
-      session.error = token.error;
-      session.user = token.user;
-      return session;
-    },
-  },
-  pages: {
-    error: "/auth/error",
-  },
-  providers: [
-    Keycloak({
-      clientId,
-      clientSecret,
-      issuer,
-      authorization: {
-        params: {
-          prompt: "login",
-        },
+        return true;
       },
-    }),
-  ],
-  secret: nextAuthSecret,
-};
 
-const handler = NextAuth(opsAuthOptions);
+      async jwt({ account, token, user, trigger, session }) {
+        const baseToken = base.callbacks?.jwt
+          ? await base.callbacks.jwt({
+              token,
+              user,
+              account,
+              trigger,
+              session,
+            })
+          : token;
 
-export { handler as GET, handler as POST };
+        if (!baseToken) return token;
+
+        return baseToken;
+      },
+
+      async session({ session, token }) {
+        const authToken = token as unknown as AuthToken;
+        session.accessToken = authToken.accessToken;
+        session.aud = authToken.aud;
+        session.error = authToken.error;
+        session.user = authToken.user;
+        return session;
+      },
+    },
+    pages: {
+      error: "/auth/error",
+    },
+  };
+
+  return NextAuth(opsAuthOptions);
+}
+
+export async function GET(req: NextRequest, ctx: { params: unknown }) {
+  return buildHandler()(req, ctx);
+}
+
+export async function POST(req: NextRequest, ctx: { params: unknown }) {
+  return buildHandler()(req, ctx);
+}
