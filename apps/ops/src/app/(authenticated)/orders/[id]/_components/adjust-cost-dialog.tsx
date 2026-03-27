@@ -32,8 +32,9 @@ export function AdjustCostDialog({
   const handleSubmit = (data: AdjustCostFormData) => {
     startTransition(async () => {
       const result = await adjustOrderCost(orderId, {
-        adjustedAmount: data.adjustedAmount,
+        currency: data.currency,
         reason: data.reason,
+        revisedAmount: data.revisedAmount,
       });
 
       if (result.success) {
