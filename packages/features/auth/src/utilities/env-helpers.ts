@@ -1,36 +1,36 @@
 interface EnvHelpers {
-    clientId: string;
-    clientSecret: string;
-    issuer: string;
-    sessionExpiry?: number;
+  clientId: string;
+  clientSecret: string;
+  issuer: string;
+  sessionExpiry?: number;
 }
 
 export function getAuthEnvConfiguration(): EnvHelpers {
-    const clientId = process.env.KEYCLOAK_CLIENT_ID;
-    const clientSecret = process.env.KEYCLOAK_CLIENT_SECRET;
-    const issuer = process.env.KEYCLOAK_ISSUER;
-    const sessionExpiry = process.env.KEYCLOAK_MAX_SESSION_AGE
-        ? parseInt(process.env.KEYCLOAK_MAX_SESSION_AGE, 10)
-        : 4 * 60 * 60;
+  const clientId = process.env.KEYCLOAK_CLIENT_ID;
+  const clientSecret = process.env.KEYCLOAK_CLIENT_SECRET;
+  const issuer = process.env.KEYCLOAK_ISSUER;
+  const sessionExpiry = process.env.KEYCLOAK_MAX_SESSION_AGE
+    ? parseInt(process.env.KEYCLOAK_MAX_SESSION_AGE, 10)
+    : 4 * 60 * 60;
 
-    const missingVars: string[] = [];
+  const missingVars: string[] = [];
 
-    if (!clientId) missingVars.push("KEYCLOAK_CLIENT_ID");
-    if (!clientSecret) missingVars.push("KEYCLOAK_CLIENT_SECRET");
-    if (!issuer) missingVars.push("KEYCLOAK_ISSUER");
+  if (!clientId) missingVars.push("KEYCLOAK_CLIENT_ID");
+  if (!clientSecret) missingVars.push("KEYCLOAK_CLIENT_SECRET");
+  if (!issuer) missingVars.push("KEYCLOAK_ISSUER");
 
-    if (missingVars.length > 0) {
-        throw new Error(
-            `Missing required Keycloak environment variables: ${missingVars.join(", ")}`,
-        );
-    }
+  if (missingVars.length > 0) {
+    throw new Error(
+      `Missing required Keycloak environment variables: ${missingVars.join(", ")}`,
+    );
+  }
 
-    return {
-        clientId: clientId!,
-        clientSecret: clientSecret!,
-        issuer: issuer!,
-        sessionExpiry: sessionExpiry!,
-    };
+  return {
+    clientId: clientId!,
+    clientSecret: clientSecret!,
+    issuer: issuer!,
+    sessionExpiry: sessionExpiry!,
+  };
 }
 
 /**
@@ -39,5 +39,5 @@ export function getAuthEnvConfiguration(): EnvHelpers {
  * Defaults to "/" if not set
  */
 export function getDefaultRedirect(): string {
-    return process.env.NEXTAUTH_DEFAULT_REDIRECT || "/";
+  return process.env.NEXTAUTH_DEFAULT_REDIRECT || "/";
 }
