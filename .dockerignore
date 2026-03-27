@@ -1,0 +1,62 @@
+# Dependencies — never copy node_modules into build context
+# pnpm installs inside Docker from the lockfile
+**/node_modules
+
+# Next.js build outputs — built inside Docker, not copied in
+**/.next
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Environment files — secrets must never enter the build context
+**/.env
+**/.env.*
+**/.env.local
+**/.env.development
+**/.env.staging
+**/.env.production
+**/.env.test
+
+# Test and coverage
+**/coverage
+**/__tests__
+**/*.test.ts
+**/*.test.tsx
+**/*.spec.ts
+**/*.spec.tsx
+
+# IDE and OS
+.vscode
+.idea
+**/.DS_Store
+**/Thumbs.db
+
+# Turbo cache
+.turbo
+**/.turbo
+
+# TypeScript build info
+**/*.tsbuildinfo
+
+# Logs
+**/*.log
+**/npm-debug.log*
+**/pnpm-debug.log*
+
+# Readme and docs — not needed in image
+README.md
+**/README.md
+
+# CI
+.github
+
+# Must NOT be excluded — required for Docker build:
+# package.json
+# pnpm-lock.yaml
+# pnpm-workspace.yaml
+# .npmrc
+# apps/*/src
+# packages/*/src
+# turbo.json
