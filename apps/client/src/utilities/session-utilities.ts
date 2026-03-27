@@ -5,7 +5,7 @@ import type {
   NextApiResponse,
 } from "next";
 import { getServerSession } from "next-auth/next";
-import { clientAuthOptions } from "@/app/api/auth/[...nextauth]/route";
+import { createAuthOptions } from "@repo/features-auth/server";
 
 export async function sessionUtilities(
   ...args:
@@ -14,9 +14,9 @@ export async function sessionUtilities(
     | []
 ) {
   if (args.length === 0) {
-    return getServerSession(clientAuthOptions);
+    return getServerSession(createAuthOptions());
   }
 
   const [req, res] = args;
-  return getServerSession(req, res, clientAuthOptions);
+  return getServerSession(req, res, createAuthOptions());
 }
