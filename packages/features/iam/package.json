@@ -23,6 +23,7 @@
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
     "@repo/features-auth": "workspace:*",
+    "@repo/features-organizations": "workspace:*",
     "@repo/shared": "workspace:*",
     "@repo/ui": "workspace:*",
     "libphonenumber-js": "^1.12.35",
