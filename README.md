@@ -88,7 +88,7 @@ Secrets are never baked into images. Each authenticated app reads Docker Swarm s
 | Tool    | Version | Notes                            |
 | ------- | ------- | -------------------------------- |
 | Node.js | 22+     | Use `nvm` or `fnm`               |
-| pnpm    | 10.32.1 | `npm install -g pnpm@10.32.1`    |
+| pnpm    | 10.33.0 | `npm install -g pnpm@10.33.0`    |
 | Docker  | 20.10+  | Required to build images locally |
 
 ---

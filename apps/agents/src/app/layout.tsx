@@ -17,6 +17,8 @@ const poppins = Poppins({
   variable: "--font-poppins",
 });
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: {
     template: "%s | eBikes Agents",

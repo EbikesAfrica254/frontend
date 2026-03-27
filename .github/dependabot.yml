@@ -1,0 +1,149 @@
+version: 2
+updates:
+  # GitHub Actions — keeps workflow action SHAs current
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      github-actions:
+        patterns:
+          - "*"
+
+  # Root workspace — pnpm, turbo, shared tooling
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      root:
+        patterns:
+          - "*"
+
+  # apps
+  - package-ecosystem: npm
+    directory: /apps/client
+    schedule:
+      interval: weekly
+    groups:
+      client:
+        patterns:
+          - "*"
+
+  - package-ecosystem: npm
+    directory: /apps/ops
+    schedule:
+      interval: weekly
+    groups:
+      ops:
+        patterns:
+          - "*"
+
+  - package-ecosystem: npm
+    directory: /apps/agents
+    schedule:
+      interval: weekly
+    groups:
+      agents:
+        patterns:
+          - "*"
+
+  - package-ecosystem: npm
+    directory: /apps/web
+    schedule:
+      interval: weekly
+    groups:
+      web:
+        patterns:
+          - "*"
+
+  # packages
+  - package-ecosystem: npm
+    directory: /packages/ui
+    schedule:
+      interval: weekly
+    groups:
+      ui:
+        patterns:
+          - "*"
+
+  - package-ecosystem: npm
+    directory: /packages/shared
+    schedule:
+      interval: weekly
+    groups:
+      shared:
+        patterns:
+          - "*"
+
+  - package-ecosystem: npm
+    directory: /packages/features/auth
+    schedule:
+      interval: weekly
+    groups:
+      features-auth:
+        patterns:
+          - "*"
+
+  - package-ecosystem: npm
+    directory: /packages/features/iam
+    schedule:
+      interval: weekly
+    groups:
+      features-iam:
+        patterns:
+          - "*"
+
+  - package-ecosystem: npm
+    directory: /packages/features/notifications
+    schedule:
+      interval: weekly
+    groups:
+      features-notifications:
+        patterns:
+          - "*"
+
+  - package-ecosystem: npm
+    directory: /packages/features/orders
+    schedule:
+      interval: weekly
+    groups:
+      features-orders:
+        patterns:
+          - "*"
+
+  - package-ecosystem: npm
+    directory: /packages/features/organizations
+    schedule:
+      interval: weekly
+    groups:
+      features-organizations:
+        patterns:
+          - "*"
+
+  - package-ecosystem: npm
+    directory: /packages/features/maker-checker
+    schedule:
+      interval: weekly
+    groups:
+      features-maker-checker:
+        patterns:
+          - "*"
+
+  - package-ecosystem: npm
+    directory: /packages/features/workforce
+    schedule:
+      interval: weekly
+    groups:
+      features-workforce:
+        patterns:
+          - "*"
+
+  - package-ecosystem: npm
+    directory: /packages/features/workflows
+    schedule:
+      interval: weekly
+    groups:
+      features-workflows:
+        patterns:
+          - "*"
