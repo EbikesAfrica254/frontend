@@ -27,20 +27,20 @@
     "server-only": "^0.0.1"
   },
   "peerDependencies": {
-    "next": "16.1.7",
+    "next": "16.2.1",
     "next-auth": "4.24.13",
-    "react": "^19.0.0"
+    "react": "^19.2.4"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@types/jsonwebtoken": "^9.0.7",
-    "@types/node": "^20",
+    "@types/node": "^25",
     "@types/react": "^19",
-    "eslint": "^9",
-    "next": "16.1.7",
+    "eslint": "^10",
+    "next": "16.2.1",
     "next-auth": "4.24.13",
-    "react": "^19.0.0",
-    "typescript": "^5"
+    "react": "^19.2.4",
+    "typescript": "^6"
   }
 }
