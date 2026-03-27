@@ -1,90 +1,109 @@
-import NextAuth, { AuthOptions } from "next-auth";
+import "server-only";
+
+import type { NextRequest } from "next/server";
+import NextAuth, { type AuthOptions } from "next-auth";
+import Keycloak from "next-auth/providers/keycloak";
+import { decode } from "jsonwebtoken";
 import {
-  authOptions,
+  createAuthOptions,
   fetchUserInfo,
-  KeycloakAccessToken,
+  getAuthEnvConfiguration,
   refreshAccessToken,
 } from "@repo/features-auth/server";
-import { nextAuthSecret } from "@/lib/env";
-import { JWT } from "next-auth/jwt";
-import Keycloak from "next-auth/providers/keycloak";
-import { getAuthEnvConfiguration } from "@repo/features-auth/server";
-import { decode } from "jsonwebtoken";
+import type {
+  AuthToken,
+  KeycloakAccessToken,
+} from "@repo/features-auth/server";
 
-const { clientId, clientSecret, issuer } = getAuthEnvConfiguration();
+export const dynamic = "force-dynamic";
 
-export const clientAuthOptions: AuthOptions = {
-  ...authOptions,
-  callbacks: {
-    ...authOptions.callbacks,
-    async jwt({ account, token, trigger, user }): Promise<JWT> {
-      const baseToken = await authOptions.callbacks?.jwt?.({
-        token,
-        account,
-        user,
-        trigger,
-      });
+function buildHandler() {
+  const { clientId, clientSecret, issuer } = getAuthEnvConfiguration();
+  const base = createAuthOptions();
 
-      if (!baseToken) {
-        return token;
-      }
+  const clientAuthOptions: AuthOptions = {
+    ...base,
+    providers: [
+      Keycloak({
+        clientId,
+        clientSecret,
+        issuer,
+        authorization: {
+          params: { prompt: "login" },
+        },
+      }),
+    ],
+    callbacks: {
+      ...base.callbacks,
+      async jwt({ account, token, user, trigger, session }) {
+        const baseToken = base.callbacks?.jwt
+          ? await base.callbacks.jwt({
+              token,
+              user,
+              account,
+              trigger,
+              session,
+            })
+          : token;
 
-      if (account && baseToken.user?.keycloakUserId) {
-        return baseToken;
-      }
+        if (!baseToken) return token;
 
-      if (trigger === "update" && baseToken.user?.keycloakUserId) {
-        const refreshedToken = await refreshAccessToken(baseToken);
-
-        if (refreshedToken.error) {
-          return refreshedToken;
+        if (
+          account &&
+          (baseToken as unknown as AuthToken).user?.keycloakUserId
+        ) {
+          return baseToken;
         }
 
-        const decodedToken = decode(
-          refreshedToken.accessToken,
-        ) as KeycloakAccessToken;
+        if (
+          trigger === "update" &&
+          (baseToken as unknown as AuthToken).user?.keycloakUserId
+        ) {
+          const refreshed = await refreshAccessToken(
+            baseToken as unknown as AuthToken,
+          );
 
-        const userInfo = await fetchUserInfo(refreshedToken.accessToken);
+          if (refreshed.error) return refreshed;
 
-        return {
-          ...refreshedToken,
-          user: {
-            ...refreshedToken.user,
-            activeOrganization: decodedToken.active_organization,
-            groups: userInfo.groups,
-          },
-        };
-      }
+          const decodedToken = decode(
+            refreshed.accessToken,
+          ) as KeycloakAccessToken;
+          const userInfo = await fetchUserInfo(refreshed.accessToken);
 
-      return baseToken;
-    },
+          return {
+            ...refreshed,
+            user: {
+              ...refreshed.user,
+              activeOrganization: decodedToken.active_organization,
+              groups: userInfo.groups,
+            },
+          };
+        }
 
-    async session({ session, token }) {
-      session.accessToken = token.accessToken;
-      session.aud = token.aud;
-      session.error = token.error;
-      session.user = token.user;
-      return session;
-    },
-  },
-  pages: {
-    error: "/auth/error",
-  },
-  providers: [
-    Keycloak({
-      clientId,
-      clientSecret,
-      issuer,
-      authorization: {
-        params: {
-          prompt: "login",
-        },
+        return baseToken;
       },
-    }),
-  ],
-  secret: nextAuthSecret,
-};
 
-const handler = NextAuth(clientAuthOptions);
+      async session({ session, token }) {
+        const authToken = token as unknown as AuthToken;
+        session.accessToken = authToken.accessToken;
+        session.aud = authToken.aud;
+        session.error = authToken.error;
+        session.user = authToken.user;
+        return session;
+      },
+    },
+    pages: {
+      error: "/auth/error",
+    },
+  };
 
-export { handler as GET, handler as POST };
+  return NextAuth(clientAuthOptions);
+}
+
+export async function GET(req: NextRequest, ctx: { params: unknown }) {
+  return buildHandler()(req, ctx);
+}
+
+export async function POST(req: NextRequest, ctx: { params: unknown }) {
+  return buildHandler()(req, ctx);
+}
