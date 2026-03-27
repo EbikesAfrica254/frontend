@@ -7,14 +7,13 @@
 #
 # Runtime env (must be set in stack file):
 #   SERVER_PORT — 3000 | 3001 | 3002 | 3003
-#   HOSTNAME    — 0.0.0.0
 #
 # Secret injection is handled by each app's src/instrumentation.ts.
-# Docker Swarm secrets are mounted at /run/secrets/<name> and read
+# Docker Swarm secrets are mounted at /run/secrets/<n> and read
 # at server startup via the Next.js instrumentation register() hook.
 # No entrypoint script required.
 #
-# NOTE: node-linker=hoisted in root ..npmrc is required.
+# NOTE: node-linker=hoisted in root .npmrc is required.
 # Without it, pnpm creates symlinks that break standalone output in Docker.
 
 ARG APP_NAME
@@ -113,6 +112,12 @@ COPY --from=builder --chown=nextjs:nodejs \
   /app/apps/${APP_NAME}/public/ ./apps/${APP_NAME}/.next/standalone/apps/${APP_NAME}/public/
 
 USER nextjs
+
+# Baked into the image layer — cannot be overridden by Docker or AWS at runtime.
+# Next.js standalone server reads HOSTNAME to determine the bind address.
+# Without this, Docker Swarm sets HOSTNAME to the container/node hostname,
+# causing EADDRNOTAVAIL when Next.js tries to bind to that address.
+ENV HOSTNAME="0.0.0.0"
 
 ENTRYPOINT ["sh", "-c", "node apps/${APP_NAME}/.next/standalone/apps/${APP_NAME}/server.js"]
 
