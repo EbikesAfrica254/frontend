@@ -3,6 +3,8 @@ import React, { ReactNode } from "react";
 import { AuthenticatedWrapper } from "./_components/authenticated-wrapper";
 import { AppSidebar } from "./_components/app-sidebar";
 
+export const dynamic = "force-dynamic";
+
 export default async function AuthenticatedLayout({
   children,
 }: {
