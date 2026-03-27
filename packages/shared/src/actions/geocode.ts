@@ -1,17 +1,17 @@
 "use server";
 
-import {withAction} from "./base-action";
+import { withAction } from "./base-action";
 import {
-    geocodeAddressResource,
-    reverseGeocodeResource,
+  geocodeAddressResource,
+  reverseGeocodeResource,
 } from "../resources/geocoding";
 
 export const geocodeAddress = withAction(async (query: string) => {
-    return geocodeAddressResource(query);
+  return geocodeAddressResource(query);
 });
 
 export const reverseGeocodeAddress = withAction(
-    async (latitude: number, longitude: number) => {
-        return reverseGeocodeResource(latitude, longitude);
-    },
+  async (latitude: number, longitude: number) => {
+    return reverseGeocodeResource(latitude, longitude);
+  },
 );
