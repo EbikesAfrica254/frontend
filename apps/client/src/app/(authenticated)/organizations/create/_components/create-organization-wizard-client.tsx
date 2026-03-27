@@ -3,19 +3,33 @@
 import { useRouter } from "next/navigation";
 import { CreateOrganizationWizard } from "@repo/features-workflows/client";
 
+type OwnerAssignmentMode =
+  | "GLOBAL_SEARCH"
+  | "ORGANIZATION_SEARCH"
+  | "BRANCH_SEARCH"
+  | "FIXED_SELF";
+
+interface OwnerAssignmentPolicy {
+  activeBranch?: string;
+  activeOrganization?: string;
+  initialOwnerDisplayName?: string;
+  initialOwnerEmail?: string;
+  initialOwnerId: string;
+  mode: OwnerAssignmentMode;
+}
+
 interface CreateOrganizationWizardClientProps {
-  ownerId: string;
+  ownerAssignmentPolicy: OwnerAssignmentPolicy;
 }
 
 export function CreateOrganizationWizardClient({
-  ownerId,
+  ownerAssignmentPolicy,
 }: CreateOrganizationWizardClientProps) {
   const router = useRouter();
 
   return (
     <CreateOrganizationWizard
-      ownerId={ownerId}
-      allowOwnerOverride={false}
+      ownerAssignmentPolicy={ownerAssignmentPolicy}
       onSuccess={() => router.push("/organizations")}
     />
   );

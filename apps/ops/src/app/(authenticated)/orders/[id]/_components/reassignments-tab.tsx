@@ -50,7 +50,7 @@ export function ReassignmentsTab({ order }: ReassignmentsTabProps) {
                     </TableCell>
                     <TableCell>{reassignment.initiatedBy}</TableCell>
                     <TableCell>
-                      {formatDateTime(reassignment.initiatedAt)}
+                      {formatDateTime(reassignment.createdAt)}
                     </TableCell>
                     <TableCell>
                       {reassignment.completedAt

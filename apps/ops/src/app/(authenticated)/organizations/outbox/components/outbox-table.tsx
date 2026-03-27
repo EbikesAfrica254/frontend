@@ -28,22 +28,22 @@ interface OutboxTableProps {
 }
 
 export function OutboxTable({
-                              data,
-                              pageCount,
-                              totalElements,
-                            }: OutboxTableProps) {
+  data,
+  pageCount,
+  totalElements,
+}: OutboxTableProps) {
   const [isPending, startTransition] = useTransition();
   const [showConfirm, setShowConfirm] = useState(false);
   const { params, setParams } = useOutboxParams();
 
   const failedCount = data.filter(
-      (event) => event.status === OutboxStatus.FAILED,
+    (event) => event.status === OutboxStatus.FAILED,
   ).length;
 
   const handleSort = (field: string) => {
     const isCurrentField = params.sortBy === field;
     const newDirection =
-        isCurrentField && params.sortDirection === "ASC" ? "DESC" : "ASC";
+      isCurrentField && params.sortDirection === "ASC" ? "DESC" : "ASC";
 
     startTransition(() => {
       void setParams({ sortBy: field, sortDirection: newDirection, page: 1 });
@@ -73,84 +73,84 @@ export function OutboxTable({
   };
 
   return (
-      <div className="space-y-6">
-        <div className="flex items-center justify-between">
-          <p className="text-sm text-muted-foreground">
-            {failedCount} failed {failedCount === 1 ? "event" : "events"}
-          </p>
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <p className="text-sm text-muted-foreground">
+          {failedCount} failed {failedCount === 1 ? "event" : "events"}
+        </p>
 
-          {failedCount > 0 && (
-              <Button
-                  onClick={() => setShowConfirm(true)}
-                  disabled={isPending}
-                  size="sm"
-              >
-                <RotateCcw className="mr-2 h-4 w-4" />
-                Retry All
-              </Button>
-          )}
-        </div>
-
-        <ConfirmationDialog
-            open={showConfirm}
-            onOpenChange={setShowConfirm}
-            onConfirm={handleRetryAll}
-            title="Retry all failed events?"
-            description={
-              <>
-                This will requeue{" "}
-                <strong>
-                  {failedCount} failed {failedCount === 1 ? "event" : "events"}
-                </strong>{" "}
-                for processing. Events will be reset to PENDING and processed on the
-                next cycle.
-              </>
-            }
-            confirmText="Retry"
-            cancelText="Cancel"
-            variant="default"
-            isPending={isPending}
-        />
-
-        <div className="rounded-md border">
-          <Table className="w-full min-w-170 md:table-fixed">
-            <OutboxTableHeader getSortState={getSortState} onSort={handleSort} />
-            <TableBody>
-              {isPending ? (
-                  <TableLoadingState columnCount={7} />
-              ) : data.length > 0 ? (
-                  data.map((event) => (
-                      <OutboxTableRow key={event.id} event={event} />
-                  ))
-              ) : (
-                  <TableEmptyState
-                      columnCount={7}
-                      message="No outbox events found."
-                  />
-              )}
-            </TableBody>
-          </Table>
-        </div>
-
-        <PaginationControls
-            canNextPage={canNextPage}
-            canPreviousPage={canPreviousPage}
-            currentPage={params.page}
+        {failedCount > 0 && (
+          <Button
+            onClick={() => setShowConfirm(true)}
             disabled={isPending}
-            onPageChange={(page: number) => {
-              startTransition(() => {
-                void setParams({ page });
-              });
-            }}
-            onPageSizeChange={(size: number) => {
-              startTransition(() => {
-                void setParams({ page: 1, size });
-              });
-            }}
-            pageCount={pageCount}
-            pageSize={params.size}
-            totalElements={totalElements}
-        />
+            size="sm"
+          >
+            <RotateCcw className="mr-2 h-4 w-4" />
+            Retry All
+          </Button>
+        )}
       </div>
+
+      <ConfirmationDialog
+        open={showConfirm}
+        onOpenChange={setShowConfirm}
+        onConfirm={handleRetryAll}
+        title="Retry all failed events?"
+        description={
+          <>
+            This will requeue{" "}
+            <strong>
+              {failedCount} failed {failedCount === 1 ? "event" : "events"}
+            </strong>{" "}
+            for processing. Events will be reset to PENDING and processed on the
+            next cycle.
+          </>
+        }
+        confirmText="Retry"
+        cancelText="Cancel"
+        variant="default"
+        isPending={isPending}
+      />
+
+      <div className="rounded-md border">
+        <Table className="w-full min-w-170 md:table-fixed">
+          <OutboxTableHeader getSortState={getSortState} onSort={handleSort} />
+          <TableBody>
+            {isPending ? (
+              <TableLoadingState columnCount={7} />
+            ) : data.length > 0 ? (
+              data.map((event) => (
+                <OutboxTableRow key={event.id} event={event} />
+              ))
+            ) : (
+              <TableEmptyState
+                columnCount={7}
+                message="No outbox events found."
+              />
+            )}
+          </TableBody>
+        </Table>
+      </div>
+
+      <PaginationControls
+        canNextPage={canNextPage}
+        canPreviousPage={canPreviousPage}
+        currentPage={params.page}
+        disabled={isPending}
+        onPageChange={(page: number) => {
+          startTransition(() => {
+            void setParams({ page });
+          });
+        }}
+        onPageSizeChange={(size: number) => {
+          startTransition(() => {
+            void setParams({ page: 1, size });
+          });
+        }}
+        pageCount={pageCount}
+        pageSize={params.size}
+        totalElements={totalElements}
+      />
+    </div>
   );
 }

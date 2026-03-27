@@ -1,4 +1,4 @@
-import type { UserRole } from "./enums";
+import { UserRole } from "@repo/shared/client";
 
 export interface MembershipResponse {
   id: string;

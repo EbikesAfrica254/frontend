@@ -20,17 +20,17 @@ interface NotificationsTableProps {
 }
 
 export function NotificationsTable({
-                                     data,
-                                     pageCount,
-                                     totalElements,
-                                   }: NotificationsTableProps) {
+  data,
+  pageCount,
+  totalElements,
+}: NotificationsTableProps) {
   const [isPending, startTransition] = useTransition();
   const [params, setParams] = useQueryStates(notificationParamsParser);
 
   const handleSort = (field: string) => {
     const isCurrentField = params.sortBy === field;
     const newDirection =
-        isCurrentField && params.sortDirection === "ASC" ? "DESC" : "ASC";
+      isCurrentField && params.sortDirection === "ASC" ? "DESC" : "ASC";
 
     startTransition(() => {
       void setParams({ sortBy: field, sortDirection: newDirection, page: 1 });
@@ -43,52 +43,52 @@ export function NotificationsTable({
   };
 
   return (
-      <div className="space-y-6">
-        <div className="rounded-md border">
-          <Table className="w-full min-w-160 md:table-fixed">
-            <NotificationsTableHeader
-                getSortState={getSortState}
-                onSort={handleSort}
-            />
-            <TableBody>
-              {isPending ? (
-                  <TableLoadingState columnCount={6} />
-              ) : data.length > 0 ? (
-                  data.map((notification) => (
-                      <NotificationsTableRow
-                          key={notification.id}
-                          notification={notification}
-                      />
-                  ))
-              ) : (
-                  <TableEmptyState
-                      columnCount={6}
-                      message="No notifications found."
-                  />
-              )}
-            </TableBody>
-          </Table>
-        </div>
-
-        <PaginationControls
-            canNextPage={params.page < pageCount}
-            canPreviousPage={params.page > 1}
-            currentPage={params.page}
-            disabled={isPending}
-            onPageChange={(page: number) => {
-              startTransition(() => {
-                void setParams({ page });
-              });
-            }}
-            onPageSizeChange={(size: number) => {
-              startTransition(() => {
-                void setParams({ page: 1, size });
-              });
-            }}
-            pageCount={pageCount}
-            pageSize={params.size}
-            totalElements={totalElements}
-        />
+    <div className="space-y-6">
+      <div className="rounded-md border">
+        <Table className="w-full min-w-160 md:table-fixed">
+          <NotificationsTableHeader
+            getSortState={getSortState}
+            onSort={handleSort}
+          />
+          <TableBody>
+            {isPending ? (
+              <TableLoadingState columnCount={6} />
+            ) : data.length > 0 ? (
+              data.map((notification) => (
+                <NotificationsTableRow
+                  key={notification.id}
+                  notification={notification}
+                />
+              ))
+            ) : (
+              <TableEmptyState
+                columnCount={6}
+                message="No notifications found."
+              />
+            )}
+          </TableBody>
+        </Table>
       </div>
+
+      <PaginationControls
+        canNextPage={params.page < pageCount}
+        canPreviousPage={params.page > 1}
+        currentPage={params.page}
+        disabled={isPending}
+        onPageChange={(page: number) => {
+          startTransition(() => {
+            void setParams({ page });
+          });
+        }}
+        onPageSizeChange={(size: number) => {
+          startTransition(() => {
+            void setParams({ page: 1, size });
+          });
+        }}
+        pageCount={pageCount}
+        pageSize={params.size}
+        totalElements={totalElements}
+      />
+    </div>
   );
 }

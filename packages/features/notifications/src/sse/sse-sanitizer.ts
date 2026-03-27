@@ -1,7 +1,7 @@
-import DOMPurify from "dompurify";
+import DOMPurify, { type Config } from "dompurify";
 import type { SseNotification } from "../types/sse";
 
-const PURIFY_CONFIG: DOMPurify.Config = {
+const PURIFY_CONFIG: Config = {
   ALLOWED_ATTR: [],
   ALLOWED_TAGS: [],
 };

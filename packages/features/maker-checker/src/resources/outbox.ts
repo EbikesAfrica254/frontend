@@ -12,10 +12,15 @@ export async function searchOutboxEventsResource(
   );
 }
 
-export async function retryOutboxEventResource(id: string): Promise<void> {
-  return authenticatedMakerCheckerFetch<void>(`/outbox/${id}/retry`, {
-    method: "PATCH",
-  });
+export async function retryOutboxEventResource(
+  id: string,
+): Promise<SuccessResponse<void>> {
+  return authenticatedMakerCheckerFetch<SuccessResponse<void>>(
+    `/outbox/${id}/retry`,
+    {
+      method: "PATCH",
+    },
+  );
 }
 
 export async function retryAllFailedOutboxEventsResource(): Promise<

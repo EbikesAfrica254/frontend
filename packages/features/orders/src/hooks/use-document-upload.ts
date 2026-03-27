@@ -73,7 +73,7 @@ export function useDocumentUpload(config: UseDocumentUploadConfig) {
     try {
       console.log("uploading document", params);
       const { documentId, key, url } = await config.initiateUpload({
-        branchId: params.branchId,
+        branchId: params.branchId!,
         contentType: params.file.type || "text/csv",
         documentType: params.documentType,
         fileName: params.file.name,

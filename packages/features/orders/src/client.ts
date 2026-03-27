@@ -3,6 +3,7 @@ export * from "./components/costs/form";
 export * from "./components/delivery/location-picker";
 export * from "./components/delivery/submit-location-form";
 export * from "./components/drafts/contact-status-badge";
+export * from "./components/drafts/draft-item-card";
 export * from "./components/drafts/filters";
 export * from "./components/drafts/status-badge";
 export * from "./components/drafts/update-delivery-location-form";

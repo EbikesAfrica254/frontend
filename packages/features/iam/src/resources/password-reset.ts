@@ -1,11 +1,11 @@
 import "server-only";
 
-import { SuccessResponse } from "@repo/shared/actions";
 import { unauthenticatedIamFetch } from "./core/iam-fetch";
 import {
   CompletePasswordResetRequest,
   PasswordResetRequest,
 } from "../types/password-reset";
+import { SuccessResponse } from "@repo/shared/client";
 
 export async function completePasswordResetResource(
   data: CompletePasswordResetRequest,

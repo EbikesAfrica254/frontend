@@ -4,7 +4,6 @@ export * from "./components/memberships/roles-form";
 export * from "./components/outbox/filters";
 export * from "./components/users/detail-form";
 export * from "./components/users/filters";
-export * from "./components/users/form";
 export * from "./components/users/search";
 export * from "./components/users/status-badge";
 

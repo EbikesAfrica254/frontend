@@ -17,6 +17,8 @@ const poppins = Poppins({
   variable: "--font-poppins",
 });
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: {
     template: "%s | eBikes Dashboard",
@@ -32,24 +34,24 @@ export const viewport: Viewport = {
 };
 
 export default async function RootLayout({
-  children,
-}: {
+                                           children,
+                                         }: {
   children: ReactNode;
 }) {
   const session = await sessionUtilities();
 
   return (
-    <html lang="en">
+      <html lang="en">
       <body className={`${poppins.variable} font-sans antialiased`}>
-        <Providers session={session}>
-          <NuqsAdapter>
-            <NotificationProvider>
-              <SseConnectionProvider>{children}</SseConnectionProvider>
-            </NotificationProvider>
-          </NuqsAdapter>
-        </Providers>
-        <Toaster />
+      <Providers session={session}>
+        <NuqsAdapter>
+          <NotificationProvider>
+            <SseConnectionProvider>{children}</SseConnectionProvider>
+          </NotificationProvider>
+        </NuqsAdapter>
+      </Providers>
+      <Toaster />
       </body>
-    </html>
+      </html>
   );
 }

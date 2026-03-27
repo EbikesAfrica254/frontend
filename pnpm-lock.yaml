@@ -502,6 +502,9 @@ importers:
       '@repo/features-auth':
         specifier: workspace:*
         version: link:../auth
+      '@repo/features-organizations':
+        specifier: workspace:*
+        version: link:../organizations
       '@repo/shared':
         specifier: workspace:*
         version: link:../../shared
