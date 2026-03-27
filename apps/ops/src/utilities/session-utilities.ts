@@ -1,11 +1,12 @@
 import "server-only";
+
 import type {
   GetServerSidePropsContext,
   NextApiRequest,
   NextApiResponse,
 } from "next";
 import { getServerSession } from "next-auth/next";
-import { opsAuthOptions } from "@/app/api/auth/[...nextauth]/route";
+import { createAuthOptions } from "@repo/features-auth/server";
 
 export async function sessionUtilities(
   ...args:
@@ -14,9 +15,9 @@ export async function sessionUtilities(
     | []
 ) {
   if (args.length === 0) {
-    return getServerSession(opsAuthOptions);
+    return getServerSession(createAuthOptions());
   }
 
   const [req, res] = args;
-  return getServerSession(req, res, opsAuthOptions);
+  return getServerSession(req, res, createAuthOptions());
 }
