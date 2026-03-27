@@ -8,7 +8,7 @@
 # Runtime env (must be set in stack file):
 #   SERVER_PORT — 3000 | 3001 | 3002 | 3003
 #
-# Secret injection is handled by each app's src/instrumentation.ts.
+# Secret injection is handled by each app's src/instrumentation.node.ts.
 # Docker Swarm secrets are mounted at /run/secrets/<n> and read
 # at server startup via the Next.js instrumentation register() hook.
 # No entrypoint script required.
