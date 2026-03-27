@@ -1,7 +1,7 @@
-import {getCertificationsResource} from "@repo/features-workforce/server";
-import {CertificationTypeBadge} from "@repo/features-workforce/client";
-import {formatDateTime} from "@repo/shared/client";
-import {Card, CardContent} from "@repo/ui/primitives/card";
+import { getCertificationsResource } from "@repo/features-workforce/server";
+import { CertificationTypeBadge } from "@repo/features-workforce/client";
+import { formatDateTime } from "@repo/shared/client";
+import { Card, CardContent } from "@repo/ui/primitives/card";
 
 interface AgentCertificationsTabProps {
   agentId: string;
