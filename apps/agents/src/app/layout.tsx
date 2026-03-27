@@ -7,49 +7,49 @@ import { NuqsAdapter } from "nuqs/adapters/next";
 import { Providers } from "@/providers/session-provider";
 import { sessionUtilities } from "@/utilities/session-utilities";
 import {
-    NotificationProvider,
-    SseConnectionProvider,
+  NotificationProvider,
+  SseConnectionProvider,
 } from "@repo/features-notifications/client";
 
 const poppins = Poppins({
-    subsets: ["latin"],
-    weight: ["400", "500", "600", "700"],
-    variable: "--font-poppins",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-poppins",
 });
 
 export const metadata: Metadata = {
-    title: {
-        template: "%s | eBikes Agents",
-        default: "Agents",
-    },
-    description: "eBikes Africa field agent app",
+  title: {
+    template: "%s | eBikes Agents",
+    default: "Agents",
+  },
+  description: "eBikes Africa field agent app",
 };
 
 export const viewport: Viewport = {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 1,
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
 };
 
 export default async function RootLayout({
-                                             children,
-                                         }: {
-    children: ReactNode;
+  children,
+}: {
+  children: ReactNode;
 }) {
-    const session = await sessionUtilities();
+  const session = await sessionUtilities();
 
-    return (
-        <html lang="en">
-        <body className={`${poppins.variable} font-sans antialiased`}>
+  return (
+    <html lang="en">
+      <body className={`${poppins.variable} font-sans antialiased`}>
         <Providers session={session}>
-            <NuqsAdapter>
-                <NotificationProvider>
-                    <SseConnectionProvider>{children}</SseConnectionProvider>
-                </NotificationProvider>
-            </NuqsAdapter>
+          <NuqsAdapter>
+            <NotificationProvider>
+              <SseConnectionProvider>{children}</SseConnectionProvider>
+            </NotificationProvider>
+          </NuqsAdapter>
         </Providers>
         <Toaster />
-        </body>
-        </html>
-    );
+      </body>
+    </html>
+  );
 }
