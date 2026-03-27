@@ -1,5 +1,5 @@
 // lib
-export * from "./lib/auth-options";
+export { createAuthOptions } from "./lib/auth-options";
 export * from "./lib/auth";
 
 // resources
