@@ -4,8 +4,8 @@ import {
   userParamsCache,
 } from "@repo/features-iam/server";
 import { UserFilters } from "@repo/features-iam/client";
-import { CreateUserSheet } from "./_components/create-user-sheet";
-import { UsersTable } from "../users/_components/users-table";
+import { CreateUserSheet } from "./_components/sheets/create-user-sheet";
+import { UsersTable } from "./_components/tables/users-table";
 
 interface UsersPageProps {
   searchParams: Promise<Record<string, string | string[] | undefined>>;

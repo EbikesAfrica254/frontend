@@ -10,7 +10,7 @@ import {
   TableLoadingState,
 } from "@repo/ui/tables/states/table-state";
 import { UsersTableRow } from "./users-table-row";
-import { UsersTableHeader } from "../_components/users-table-header";
+import { UsersTableHeader } from "./users-table-header";
 
 interface UsersTableProps {
   data: UserExtensionSummaryResponse[];

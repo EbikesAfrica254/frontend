@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import type { UpdateUserFormData } from "@repo/features-iam/client";
 import {
   UserDetailForm,
-  UserExtensionResponse,
+  UserExtensionDetailResponse,
   UserStatus,
 } from "@repo/features-iam/client";
 import {
@@ -20,7 +20,7 @@ import { updateUser } from "@repo/features-iam/actions";
 interface EditUserDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  user: UserExtensionResponse;
+  user: UserExtensionDetailResponse;
 }
 
 export function EditUserSheet({
