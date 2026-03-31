@@ -24,6 +24,7 @@ function handleActionError<TData>(error: unknown): ActionResult<TData> {
       success: false,
       code: error.code,
       error: error.detail,
+      errorReference: error.errorReference,
       errors: error.errors,
     };
   }
