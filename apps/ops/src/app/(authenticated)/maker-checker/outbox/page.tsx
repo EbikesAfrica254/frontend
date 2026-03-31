@@ -1,40 +1,30 @@
-import { buildQueryString } from "@repo/shared/client";
-import {
-  outboxParamsCache,
-  searchOutboxEventsResource,
-} from "@repo/features-maker-checker/server";
+import { OutboxTable } from "@repo/shared/client";
+import { searchOutboxEventsResource } from "@repo/features-notifications/server";
 import { OutboxFilters } from "@repo/features-maker-checker/client";
-import { OutboxTable } from "./components/outbox-table";
+import {
+  retryAllFailedEvents,
+  retryFailedEvent,
+} from "@repo/features-notifications/actions";
+import { resolveOutboxQueryString } from "@repo/shared/server";
 
 interface OutboxPageProps {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }
 
 export default async function OutboxPage({ searchParams }: OutboxPageProps) {
-  const resolvedParams = await searchParams;
-  const filters = outboxParamsCache.parse(resolvedParams);
-
-  const queryString = buildQueryString({
-    eventType: filters.eventType,
-    maxRetryCount: filters.maxRetryCount,
-    minRetryCount: filters.minRetryCount,
-    page: filters.page ?? 1,
-    size: filters.size ?? 20,
-    sortBy: filters.sortBy,
-    sortDirection: filters.sortDirection,
-    status: filters.status,
-  });
+  const queryString = await resolveOutboxQueryString(searchParams);
 
   const response = await searchOutboxEventsResource(queryString);
-
   return (
-    <div className="space-y-6 p-4">
-      <OutboxFilters />
-      <OutboxTable
-        data={response.data}
-        pageCount={response.totalPages}
-        totalElements={response.totalElements}
-      />
-    </div>
+      <div className="space-y-6 p-4">
+        <OutboxFilters />
+        <OutboxTable
+            data={response.data}
+            pageCount={response.totalPages}
+            totalElements={response.totalElements}
+            onRetry={retryFailedEvent}
+            onRetryAll={retryAllFailedEvents}
+        />
+      </div>
   );
 }
