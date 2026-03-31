@@ -8,12 +8,12 @@ import { Controller, useForm } from "react-hook-form";
 import React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PhoneInput } from "@repo/ui/inputs/phone-input";
-import { UserExtensionResponse } from "../../types/users";
+import { UserExtensionDetailResponse } from "../../types/users";
 import { Badge } from "@repo/ui/primitives/badge";
 import { UserStatus } from "../../types/enums";
 
 interface UserDetailFormProps {
-  user: UserExtensionResponse;
+  user: UserExtensionDetailResponse;
   onSubmit: (data: UpdateUserFormData) => void | Promise<void>;
 }
 

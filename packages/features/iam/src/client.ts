@@ -1,7 +1,6 @@
 // components
 export * from "./components/memberships/form";
 export * from "./components/memberships/roles-form";
-export * from "./components/outbox/filters";
 export * from "./components/users/detail-form";
 export * from "./components/users/filters";
 export * from "./components/users/search";
@@ -9,7 +8,6 @@ export * from "./components/users/status-badge";
 
 // hooks
 export * from "./hooks/use-available-roles";
-export * from "./hooks/use-outbox-params";
 export * from "./hooks/use-user-params";
 
 // lib
@@ -24,7 +22,6 @@ export * from "./schemas/verification-schema";
 export * from "./types/context";
 export * from "./types/enums";
 export * from "./types/membership";
-export * from "./types/outbox";
 export * from "./types/password-reset";
 export * from "./types/scope";
 export * from "./types/users";

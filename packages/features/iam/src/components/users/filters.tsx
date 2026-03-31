@@ -6,6 +6,8 @@ import { userParamsParser } from "../../lib/users-params-parser";
 import { UserStatus } from "../../types/enums";
 import { FilterInput } from "@repo/ui/tables/filter-input";
 import { FilterSelect } from "@repo/ui/tables/filter-select";
+import { FilterBoolean } from "@repo/ui/tables/filter-boolean";
+import { FilterDateTimePicker } from "@repo/ui/tables/filter-date-time-picker";
 
 interface UserFiltersProps {
   onFilterChange?: () => void;
@@ -16,11 +18,15 @@ export function UserFilters({ onFilterChange }: UserFiltersProps) {
 
   const [filters, setFilters] = useQueryStates(
     {
+      createdAtFrom: userParamsParser.createdAtFrom,
+      createdAtTo: userParamsParser.createdAtTo,
       email: userParamsParser.email,
+      emailVerified: userParamsParser.emailVerified,
       firstName: userParamsParser.firstName,
       lastName: userParamsParser.lastName,
       organizationId: userParamsParser.organizationId,
       phoneNumber: userParamsParser.phoneNumber,
+      phoneNumberVerified: userParamsParser.phoneNumberVerified,
       status: userParamsParser.status,
       username: userParamsParser.username,
     },
@@ -37,11 +43,15 @@ export function UserFilters({ onFilterChange }: UserFiltersProps) {
 
   const handleClearFilters = () => {
     void setFilters({
+      createdAtFrom: null,
+      createdAtTo: null,
       email: null,
+      emailVerified: null,
       firstName: null,
       lastName: null,
       organizationId: null,
       phoneNumber: null,
+      phoneNumberVerified: null,
       status: null,
       username: null,
     });
@@ -105,6 +115,15 @@ export function UserFilters({ onFilterChange }: UserFiltersProps) {
           value={filters.phoneNumber ?? ""}
         />
 
+        <FilterInput
+          debounceMs={300}
+          disabled={isPending}
+          label="Username"
+          onChange={(value) => handleChange("username", value)}
+          placeholder="Search by username..."
+          value={filters.username ?? ""}
+        />
+
         <FilterSelect
           disabled={isPending}
           label="Status"
@@ -118,13 +137,32 @@ export function UserFilters({ onFilterChange }: UserFiltersProps) {
           value={filters.status ?? ""}
         />
 
-        <FilterInput
-          debounceMs={300}
+        <FilterBoolean
           disabled={isPending}
-          label="Username"
-          onChange={(value) => handleChange("username", value)}
-          placeholder="Search by username..."
-          value={filters.username ?? ""}
+          label="Email Verified"
+          onChange={(value) => void setFilters({ emailVerified: value })}
+          value={filters.emailVerified ?? null}
+        />
+
+        <FilterBoolean
+          disabled={isPending}
+          label="Phone Verified"
+          onChange={(value) => void setFilters({ phoneNumberVerified: value })}
+          value={filters.phoneNumberVerified ?? null}
+        />
+
+        <FilterDateTimePicker
+          disabled={isPending}
+          label="Created From"
+          onChange={(date) => void setFilters({ createdAtFrom: date })}
+          value={filters.createdAtFrom}
+        />
+
+        <FilterDateTimePicker
+          disabled={isPending}
+          label="Created To"
+          onChange={(date) => void setFilters({ createdAtTo: date })}
+          value={filters.createdAtTo}
         />
       </div>
 
