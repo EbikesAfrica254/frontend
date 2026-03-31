@@ -72,6 +72,8 @@ export function DateTimePicker({
       .map(Number);
     const updated = selectedDate ? new Date(selectedDate) : new Date();
     updated.setHours(hours, minutes, seconds, 0);
+    if (fromDate && updated < fromDate) return;
+    if (toDate && updated > toDate) return;
     onChange?.(updated);
   };
 
@@ -104,6 +106,10 @@ export function DateTimePicker({
           onSelect={handleDateSelect}
           startMonth={fromDate}
           endMonth={toDate}
+          disabled={[
+            ...(fromDate ? [{ before: fromDate }] : []),
+            ...(toDate ? [{ after: toDate }] : []),
+          ]}
           captionLayout={captionLayout}
         />
         <div className="border-t p-3">
