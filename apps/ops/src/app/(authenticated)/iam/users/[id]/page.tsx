@@ -3,15 +3,16 @@ import {
   getUserResource,
 } from "@repo/features-iam/server";
 import { UserDetailActions } from "./_components/user-detail-actions";
-import { UserOverviewTab } from "./_components/user-overview-tab";
-import { UserMembershipsTab } from "./_components/user-memberships-tab";
-import { UserPreferencesTab } from "./_components/user-preferences-tab";
+
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
 } from "@repo/ui/primitives/tabs";
+import { UserOverviewTab } from "./_components/tabs/user-overview-tab";
+import { UserMembershipsTab } from "./_components/tabs/user-memberships-tab";
+import { UserPreferencesTab } from "./_components/tabs/user-preferences-tab";
 
 interface UserDetailPageProps {
   params: Promise<{ id: string }>;
