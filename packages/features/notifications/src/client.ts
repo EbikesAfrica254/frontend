@@ -24,7 +24,6 @@ export * from "./hooks/use-notifications-params";
 // lib
 export * from "./lib/notifications-params-parser";
 export * from "./lib/organization-preferences-params-parser";
-export * from "./lib/outbox-params-parser";
 export * from "./lib/templates-params-parser";
 export * from "./lib/user-preferences-params-parser";
 

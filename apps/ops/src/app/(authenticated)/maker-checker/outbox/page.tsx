@@ -1,6 +1,6 @@
 import { OutboxTable } from "@repo/shared/client";
 import { searchOutboxEventsResource } from "@repo/features-notifications/server";
-import { OutboxFilters } from "@repo/features-maker-checker/client";
+import { OutboxFilters } from "@repo/shared/client";
 import {
   retryAllFailedEvents,
   retryFailedEvent,

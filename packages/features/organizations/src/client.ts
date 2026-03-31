@@ -33,7 +33,6 @@ export * from "./types/branches";
 export * from "./types/documents";
 export * from "./types/enums";
 export * from "./types/organizations";
-export * from "./types/outbox";
 
 // utilities
 export * from "./utilities/document-helpers";

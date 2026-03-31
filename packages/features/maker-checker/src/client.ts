@@ -14,7 +14,6 @@ export * from "./hooks/use-approval-actions";
 export * from "./hooks/use-request-params";
 
 // lib
-export { outboxParamsParser } from "./lib/outbox-params-parser";
 export { requestsParamsParser } from "./lib/requests-params-parser";
 
 // schemas
