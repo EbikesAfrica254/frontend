@@ -1,14 +1,14 @@
 import {
   parseAsInteger,
-  parseAsIsoDate,
+  parseAsIsoDateTime,
   parseAsString,
   parseAsStringEnum,
 } from "nuqs/server";
-import { OutboxStatus } from "../types/enums";
+import { OutboxStatus } from "../types/outbox";
 
 export const outboxParamsParser = {
-  createdAtFrom: parseAsIsoDate,
-  createdAtTo: parseAsIsoDate,
+  createdAtFrom: parseAsIsoDateTime,
+  createdAtTo: parseAsIsoDateTime,
   eventType: parseAsString,
   maxRetryCount: parseAsInteger,
   minRetryCount: parseAsInteger,
@@ -17,6 +17,6 @@ export const outboxParamsParser = {
   sortBy: parseAsString.withDefault("createdAt"),
   sortDirection: parseAsStringEnum(["ASC", "DESC"]).withDefault("DESC"),
   status: parseAsStringEnum(Object.values(OutboxStatus)),
-  updatedAtFrom: parseAsIsoDate,
-  updatedAtTo: parseAsIsoDate,
+  updatedAtFrom: parseAsIsoDateTime,
+  updatedAtTo: parseAsIsoDateTime,
 };
