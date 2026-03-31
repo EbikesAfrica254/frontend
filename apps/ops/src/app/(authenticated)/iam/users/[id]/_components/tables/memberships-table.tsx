@@ -13,7 +13,7 @@ import { TableEmptyState } from "@repo/ui/tables/states/table-state";
 import { Plus } from "lucide-react";
 import type { MembershipResponse } from "@repo/features-iam/client";
 import { MembershipsTableRow } from "./memberships-table-row";
-import { AddMembershipDialog } from "./add-membership-dialog";
+import { AddMembershipSheet } from "../sheets/add-membership-sheet";
 
 interface MembershipsTableProps {
   keycloakUserId: string;
@@ -74,7 +74,7 @@ export function MembershipsTable({
         </div>
       </div>
 
-      <AddMembershipDialog
+      <AddMembershipSheet
         open={addDialogOpen}
         onOpenChange={setAddDialogOpen}
         keycloakUserId={keycloakUserId}

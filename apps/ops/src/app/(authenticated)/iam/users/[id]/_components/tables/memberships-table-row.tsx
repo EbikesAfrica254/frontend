@@ -20,7 +20,7 @@ import {
   removeMembership,
   setPrimaryMembership,
 } from "@repo/features-iam/actions";
-import { EditMembershipRolesDialog } from "./edit-membership-roles-dialog";
+import { EditMembershipRolesSheet } from "../sheets/edit-membership-roles-sheet";
 
 interface MembershipsTableRowProps {
   membership: MembershipResponse;
@@ -162,7 +162,7 @@ export function MembershipsTableRow({
         </TableCell>
       </TableRow>
 
-      <EditMembershipRolesDialog
+      <EditMembershipRolesSheet
         open={editRolesDialogOpen}
         onOpenChange={setEditRolesDialogOpen}
         keycloakUserId={keycloakUserId}

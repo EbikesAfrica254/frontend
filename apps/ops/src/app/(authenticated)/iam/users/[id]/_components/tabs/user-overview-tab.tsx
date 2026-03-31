@@ -8,18 +8,20 @@ import { Button } from "@repo/ui/primitives/button";
 import { Card, CardContent, CardHeader } from "@repo/ui/primitives/card";
 import { getUserInitials } from "@repo/ui";
 import { Edit, X } from "lucide-react";
-import type { UpdateUserFormData } from "@repo/features-iam/client";
+import type {
+  UpdateUserFormData,
+  UserExtensionDetailResponse,
+} from "@repo/features-iam/client";
 import {
   getUserStatusBadge,
   UserDetailForm,
-  UserExtensionResponse,
   UserStatus,
 } from "@repo/features-iam/client";
 import { updateUser } from "@repo/features-iam/actions";
 import { formatDateTime } from "@repo/shared/client";
 
 interface UserOverviewTabProps {
-  user: UserExtensionResponse;
+  user: UserExtensionDetailResponse;
 }
 
 export function UserOverviewTab({ user }: UserOverviewTabProps) {

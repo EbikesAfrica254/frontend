@@ -1,9 +1,9 @@
-import type { UserExtensionResponse } from "@repo/features-iam/client";
+import type { UserExtensionDetailResponse } from "@repo/features-iam/client";
 import { searchUserPreferencesResource } from "@repo/features-notifications/server";
 import { UserPreferencesMatrix } from "@repo/features-notifications/client";
 
 interface UserPreferencesTabProps {
-  user: UserExtensionResponse;
+  user: UserExtensionDetailResponse;
 }
 
 export async function UserPreferencesTab({ user }: UserPreferencesTabProps) {
