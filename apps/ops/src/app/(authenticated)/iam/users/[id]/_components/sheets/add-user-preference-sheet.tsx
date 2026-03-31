@@ -21,7 +21,7 @@ interface AddUserPreferenceDialogProps {
   onAdded: (preference: UserPreferenceResponse) => void;
 }
 
-export function AddUserPreferenceDialog({
+export function AddUserPreferenceSheet({
   open,
   onOpenChange,
   keycloakUserId,

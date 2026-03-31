@@ -24,7 +24,7 @@ interface AddMembershipDialogProps {
   userExtensionId: string;
 }
 
-export function AddMembershipDialog({
+export function AddMembershipSheet({
   open,
   onOpenChange,
   keycloakUserId,

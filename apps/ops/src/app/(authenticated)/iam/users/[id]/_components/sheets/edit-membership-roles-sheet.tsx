@@ -10,7 +10,7 @@ import {
   SheetTitle,
 } from "@repo/ui/primitives/sheet";
 import type { UpdateMembershipRolesFormData } from "@repo/features-iam/client";
-import { MembershipRolesForm } from "@repo/features-iam/client";
+import { UpdateMembershipRolesForm } from "@repo/features-iam/client";
 import { updateMembershipRoles } from "@repo/features-iam/actions";
 
 interface EditMembershipRolesDialogProps {
@@ -24,7 +24,7 @@ interface EditMembershipRolesDialogProps {
   membershipName: string;
 }
 
-export function EditMembershipRolesDialog({
+export function EditMembershipRolesSheet({
   open,
   onOpenChange,
   keycloakUserId,
@@ -70,7 +70,7 @@ export function EditMembershipRolesDialog({
         </SheetHeader>
 
         <div className="mt-6">
-          <MembershipRolesForm
+          <UpdateMembershipRolesForm
             currentRoles={currentRoles}
             onSubmit={handleSubmit}
           />
