@@ -1,5 +1,6 @@
 import { TableHead, TableHeader, TableRow } from "@repo/ui/primitives/table";
 import { SortableHeader } from "@repo/ui/tables/controls/sortable-header";
+import React from "react";
 
 interface OutboxTableHeaderProps {
   getSortState: (field: string) => false | "asc" | "desc";
@@ -20,7 +21,6 @@ export function OutboxTableHeader({
             onSort={() => onSort("eventType")}
           />
         </TableHead>
-        <TableHead>Routing Key</TableHead>
         <TableHead>
           <SortableHeader
             title="Retry Count"

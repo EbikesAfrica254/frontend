@@ -4,10 +4,10 @@ import { useQueryStates } from "nuqs";
 import { useTransition } from "react";
 import { FilterInput } from "@repo/ui/tables/filter-input";
 import { FilterSelect } from "@repo/ui/tables/filter-select";
-import { FilterDateRangePicker } from "@repo/ui/tables/filter-date-range-picker";
+import { FilterDateTimePicker } from "@repo/ui/tables/filter-date-time-picker";
 import { outboxParamsParser } from "../../lib/outbox-params-parser";
-import { OutboxStatus } from "../../types/enums";
 import React from "react";
+import {OutboxStatus} from "../../types/outbox";
 
 const STATUS_OPTIONS = Object.values(OutboxStatus).map((status) => ({
   label: status.charAt(0) + status.slice(1).toLowerCase(),
@@ -112,28 +112,32 @@ export function OutboxFilters() {
           value={filters.maxRetryCount?.toString() ?? ""}
         />
 
-        <FilterDateRangePicker
+        <FilterDateTimePicker
           disabled={isPending}
-          label="Created At"
-          onChange={({ from, to }) =>
-            void setFilters({ createdAtFrom: from, createdAtTo: to })
-          }
-          value={{
-            from: filters.createdAtFrom,
-            to: filters.createdAtTo,
-          }}
+          label="Created From"
+          onChange={(date) => void setFilters({ createdAtFrom: date })}
+          value={filters.createdAtFrom}
         />
 
-        <FilterDateRangePicker
+        <FilterDateTimePicker
           disabled={isPending}
-          label="Updated At"
-          onChange={({ from, to }) =>
-            void setFilters({ updatedAtFrom: from, updatedAtTo: to })
-          }
-          value={{
-            from: filters.updatedAtFrom,
-            to: filters.updatedAtTo,
-          }}
+          label="Created To"
+          onChange={(date) => void setFilters({ createdAtTo: date })}
+          value={filters.createdAtTo}
+        />
+
+        <FilterDateTimePicker
+          disabled={isPending}
+          label="Updated From"
+          onChange={(date) => void setFilters({ updatedAtFrom: date })}
+          value={filters.updatedAtFrom}
+        />
+
+        <FilterDateTimePicker
+          disabled={isPending}
+          label="Updated To"
+          onChange={(date) => void setFilters({ updatedAtTo: date })}
+          value={filters.updatedAtTo}
         />
       </div>
 

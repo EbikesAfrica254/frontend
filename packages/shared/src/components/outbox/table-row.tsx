@@ -7,23 +7,25 @@ import { TableCell, TableRow } from "@repo/ui/primitives/table";
 import { Button } from "@repo/ui/primitives/button";
 import { Badge } from "@repo/ui/primitives/badge";
 import {
+  formatDateTime,
   getOutboxStatusBadge,
   OutboxResponse,
-} from "@repo/features-iam/client";
-import { OutboxStatus } from "@repo/features-iam/client";
-import { retryFailedEvent } from "@repo/features-iam/actions";
-import { formatDateTime } from "@repo/shared/client";
+  OutboxStatus,
+} from "@repo/shared/client";
+import { ActionResult } from "../../types/action-result";
+import React from "react";
 
 interface OutboxTableRowProps {
   event: OutboxResponse;
+  onRetry: (id: string) => Promise<ActionResult>;
 }
 
-export function OutboxTableRow({ event }: OutboxTableRowProps) {
+export function OutboxTableRow({ event, onRetry }: OutboxTableRowProps) {
   const [isRetrying, setIsRetrying] = useState(false);
 
   const handleRetry = async () => {
     setIsRetrying(true);
-    const result = await retryFailedEvent(event.id);
+    const result = await onRetry(event.id);
 
     if (result.success) {
       toast.success("Event queued for retry");
@@ -38,7 +40,6 @@ export function OutboxTableRow({ event }: OutboxTableRowProps) {
   return (
     <TableRow>
       <TableCell className="font-medium">{event.eventType}</TableCell>
-      <TableCell className="font-mono text-xs">{event.routingKey}</TableCell>
       <TableCell>
         <Badge variant={event.retryCount > 3 ? "destructive" : "secondary"}>
           {event.retryCount}

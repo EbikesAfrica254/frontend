@@ -10,26 +10,28 @@ import {
 } from "@repo/ui/tables/states/table-state";
 import { ConfirmationDialog } from "@repo/ui/dialogs/confirmation-dialog";
 import { RotateCcw } from "lucide-react";
-import {
-  OutboxResponse,
-  OutboxStatus,
-  useOutboxParams,
-} from "@repo/features-iam/client";
-import { OutboxTableRow } from "./outbox-table-row";
-import { retryAllFailedEvents } from "@repo/features-iam/actions";
+import { ActionResult } from "../../types/action-result";
+import { OutboxTableRow } from "./table-row";
 import { PaginationControls } from "@repo/ui/tables/controls/pagination-controls";
-import { OutboxTableHeader } from "../components/outbox-table-header";
+import { OutboxTableHeader } from "./table-header";
+import React from "react";
+import { useOutboxParams } from "../../hooks/use-outbox-params";
+import { OutboxResponse, OutboxStatus } from "../../types/outbox";
 
 interface OutboxTableProps {
   data: OutboxResponse[];
   pageCount: number;
   totalElements: number;
+  onRetry: (id: string) => Promise<ActionResult<void>>;
+  onRetryAll: () => Promise<ActionResult<number>>;
 }
 
 export function OutboxTable({
   data,
   pageCount,
   totalElements,
+  onRetry,
+  onRetryAll,
 }: OutboxTableProps) {
   const [isPending, startTransition] = useTransition();
   const [showConfirm, setShowConfirm] = useState(false);
@@ -59,7 +61,7 @@ export function OutboxTable({
 
   const handleRetryAll = async () => {
     startTransition(async () => {
-      const result = await retryAllFailedEvents();
+      const result = await onRetryAll();
 
       if (result.success) {
         toast.success(`Retrying ${result.data} failed events`);
@@ -118,7 +120,11 @@ export function OutboxTable({
               <TableLoadingState columnCount={7} />
             ) : data.length > 0 ? (
               data.map((event) => (
-                <OutboxTableRow key={event.id} event={event} />
+                <OutboxTableRow
+                  key={event.id}
+                  event={event}
+                  onRetry={onRetry}
+                />
               ))
             ) : (
               <TableEmptyState

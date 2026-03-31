@@ -7,6 +7,7 @@ import {
   TableRow,
 } from "@repo/ui/primitives/table";
 import { TableLoadingState } from "@repo/ui/tables/states/table-state";
+import React from "react";
 
 export default function OutboxLoading() {
   return (
