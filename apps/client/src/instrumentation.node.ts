@@ -1,4 +1,3 @@
-
 import { loadDockerSecrets } from "@repo/shared/server";
 
 export async function register() {
