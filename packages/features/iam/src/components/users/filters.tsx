@@ -7,7 +7,7 @@ import { UserStatus } from "../../types/enums";
 import { FilterInput } from "@repo/ui/tables/filter-input";
 import { FilterSelect } from "@repo/ui/tables/filter-select";
 import { FilterBoolean } from "@repo/ui/tables/filter-boolean";
-import { FilterDateTimePicker } from "@repo/ui/tables/filter-date-time-picker";
+import { FilterDateTimeRangePicker } from "@repo/ui/tables/filter-date-time-range-picker";
 
 interface UserFiltersProps {
   onFilterChange?: () => void;
@@ -151,18 +151,16 @@ export function UserFilters({ onFilterChange }: UserFiltersProps) {
           value={filters.phoneNumberVerified ?? null}
         />
 
-        <FilterDateTimePicker
+        <FilterDateTimeRangePicker
           disabled={isPending}
-          label="Created From"
-          onChange={(date) => void setFilters({ createdAtFrom: date })}
-          value={filters.createdAtFrom}
-        />
-
-        <FilterDateTimePicker
-          disabled={isPending}
-          label="Created To"
-          onChange={(date) => void setFilters({ createdAtTo: date })}
-          value={filters.createdAtTo}
+          label="Created At"
+          value={{
+            from: filters.createdAtFrom,
+            to: filters.createdAtTo,
+          }}
+          onChange={({ from, to }) =>
+            void setFilters({ createdAtFrom: from, createdAtTo: to })
+          }
         />
       </div>
 
