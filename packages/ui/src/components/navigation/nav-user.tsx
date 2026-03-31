@@ -23,25 +23,6 @@ import {
   getUserInitials,
 } from "../../utilities";
 
-interface MembershipResponse {
-  id: string;
-  branchId?: string;
-  branchName?: string;
-  isPrimary: boolean;
-  keycloakGroupPath: string;
-  keycloakUserId: string;
-  organizationId: string;
-  organizationName: string;
-  roles: string[];
-  userExtensionId: string;
-}
-
-enum UserStatus {
-  ACTIVE = "ACTIVE",
-  DELETED = "DELETED",
-  INACTIVE = "INACTIVE",
-}
-
 interface NavUserProps {
   loading?: boolean;
   onLogout: () => void;
@@ -51,22 +32,15 @@ interface NavUserProps {
     email: string;
     firstName: string;
     lastName: string;
-    countryCode: string;
-    phoneNumber: string;
-    emailVerified: boolean;
-    phoneNumberVerified: boolean;
-    status: UserStatus;
-    activeMembership: MembershipResponse;
-    memberships: MembershipResponse[];
-    createdAt: string;
-    updatedAt: string;
+    activeMembership: {
+      roles: string[];
+    };
   };
 }
 
 export function NavUser({ loading = false, onLogout, user }: NavUserProps) {
   const { open } = useSidebar();
 
-  // Derive display name from firstName + lastName, fallback to username
   const userName = useMemo(() => {
     if (!user) return "User";
     const fullName = `${user.firstName} ${user.lastName}`.trim();
@@ -76,7 +50,6 @@ export function NavUser({ loading = false, onLogout, user }: NavUserProps) {
   const userInitials = useMemo(() => getUserInitials(userName), [userName]);
   const userEmail = user?.email || "";
 
-  // Display primary role or role count
   const userRole = useMemo(() => {
     if (!user?.activeMembership?.roles?.length) return "User";
     const roles = user.activeMembership.roles;
@@ -84,17 +57,11 @@ export function NavUser({ loading = false, onLogout, user }: NavUserProps) {
     return `${roles[0]} +${roles.length - 1}`;
   }, [user?.activeMembership?.roles]);
 
-  // Generate consistent color-coded avatar fallback
   const fallbackStyle = useMemo(() => {
     if (!user?.id) return {};
-
     const bgColor = generateAvatarFallback(user.id);
     const textColor = getContrastColor(bgColor);
-
-    return {
-      backgroundColor: bgColor,
-      color: textColor,
-    };
+    return { backgroundColor: bgColor, color: textColor };
   }, [user?.id]);
 
   if (loading) {

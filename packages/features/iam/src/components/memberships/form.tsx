@@ -16,6 +16,7 @@ import {
   OrganizationSearch,
   OrganizationSummaryResponse,
 } from "@repo/features-organizations/client";
+import { roleLabels } from "../../utilities/role-helpers";
 
 interface MembershipFormProps {
   onFetchBranches: (
@@ -26,26 +27,6 @@ interface MembershipFormProps {
   ) => Promise<ActionResult<PaginatedResponse<OrganizationSummaryResponse>>>;
   onSubmit: (data: CreateMembershipFormData) => void | Promise<void>;
 }
-
-const roleLabels: Record<string, string> = {
-  AGENT: "Agent",
-  BRANCH_ADMIN: "Branch Admin",
-  BRANCH_OPERATOR: "Branch Operator",
-  BRANCH_CHECKER: "Branch Checker",
-  BRANCH_FLEET_MANAGER: "Branch Fleet Manager",
-  BRANCH_FLEET_SUPPORT: "Branch Fleet Support",
-  BRANCH_INVENTORY_MANAGER: "Branch Inventory Manager",
-  BRANCH_MAKER: "Branch Maker",
-  CUSTOMER: "Customer",
-  ORGANIZATION_ADMIN: "Organization Admin",
-  ORGANIZATION_CHECKER: "Organization Checker",
-  ORGANIZATION_OPERATOR: "Organization Operator",
-  ORGANIZATION_FLEET_MANAGER: "Organization Fleet Manager",
-  ORGANIZATION_FLEET_SUPPORT: "Organization Fleet Support",
-  ORGANIZATION_INVENTORY_MANAGER: "Organization Inventory Manager",
-  ORGANIZATION_MAKER: "Organization Maker",
-  SYSTEM_ADMIN: "System Admin",
-};
 
 export function MembershipForm({
   onFetchBranches,
@@ -63,9 +44,7 @@ export function MembershipForm({
     resolver: zodResolver(createMembershipSchema),
     defaultValues: {
       organizationId: "",
-      organizationName: "",
       branchId: "",
-      branchName: "",
       roles: [],
       isPrimary: false,
     },
@@ -85,11 +64,9 @@ export function MembershipForm({
               disabled={isSubmitting}
               onFetch={onFetchOrganizations}
               value={field.value}
-              onValueChange={(id, org) => {
+              onValueChange={(id) => {
                 setValue("organizationId", id);
-                setValue("organizationName", org.displayName);
                 setValue("branchId", "");
-                setValue("branchName", "");
               }}
             />
           )}
@@ -112,9 +89,8 @@ export function MembershipForm({
               onFetch={onFetchBranches}
               organizationId={selectedOrgId || undefined}
               value={field.value}
-              onValueChange={(id, branch) => {
+              onValueChange={(id) => {
                 setValue("branchId", id);
-                setValue("branchName", branch.displayName);
               }}
             />
           )}

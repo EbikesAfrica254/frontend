@@ -15,7 +15,7 @@ export const retryAllFailedEvents = withAction(async () => {
   return result;
 });
 
-export const retryOutboxEvent = withAction(async (id: string) => {
+export const retryFailedEvent = withAction(async (id: string) => {
   const result = await retryOutboxEventResource(id);
 
   revalidatePath("/notifications/outbox");

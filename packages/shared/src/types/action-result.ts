@@ -9,6 +9,7 @@ export interface ActionFailure {
   success: false;
   code: string;
   error: string;
+  errorReference?: string;
   errors?: ErrorDetail[];
 }
 

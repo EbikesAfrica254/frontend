@@ -13,7 +13,7 @@ export async function GET(req: NextRequest) {
 
   try {
     const response = await fetch(
-      `${getRequiredEnv("NOTIFICATIONS_API_URL")}/sse/stream`,
+      `${getRequiredEnv("NOTIFICATIONS_SERVICE_BASE_URL")}/sse/stream`,
       {
         headers: {
           Authorization: `Bearer ${session.accessToken}`,

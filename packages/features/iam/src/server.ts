@@ -1,6 +1,5 @@
 // lib
 export * from "./lib/resolve-scope";
-export * from "./lib/outbox-params-cache";
 export * from "./lib/users-params-cache";
 
 // resources
@@ -15,7 +14,6 @@ export * from "./resources/verification";
 export * from "./types/context";
 export * from "./types/enums";
 export * from "./types/membership";
-export * from "./types/outbox";
 export * from "./types/password-reset";
 export * from "./types/scope";
 export * from "./types/users";

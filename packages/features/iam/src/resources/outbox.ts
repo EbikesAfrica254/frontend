@@ -2,7 +2,7 @@ import "server-only";
 
 import { PaginatedResponse, SuccessResponse } from "@repo/shared/server";
 import { authenticatedIamFetch } from "./core/iam-fetch";
-import { OutboxResponse } from "../types/outbox";
+import { OutboxResponse } from "@repo/shared/server";
 
 export async function searchOutboxEventsResource(
   queryString: string,

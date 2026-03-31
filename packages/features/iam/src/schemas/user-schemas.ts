@@ -34,12 +34,12 @@ export const createUserSchema = z
       .string()
       .min(1, "First name is required")
       .max(255, "First name must be at most 255 characters"),
+    isPrimary: z.boolean().nullable().optional(),
     lastName: z
       .string()
       .min(1, "Last name is required")
       .max(255, "Last name must be at most 255 characters"),
     organizationId: z.uuid().optional(),
-    organizationName: z.string().max(255).optional(),
     phoneNumber: z
       .string()
       .regex(/^\+?[1-9]\d{1,14}$/, "Phone number must be in E.164 format")
@@ -80,14 +80,6 @@ export const createUserSchema = z
         code: "custom",
         message: "Organization is required for branch-level roles",
         path: ["organizationId"],
-      });
-    }
-
-    if (data.organizationId && !data.organizationName) {
-      ctx.addIssue({
-        code: "custom",
-        message: "Organization name is required when organization is selected",
-        path: ["organizationName"],
       });
     }
   });

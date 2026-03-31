@@ -6,6 +6,7 @@ export interface CreateUserRequest {
   username: string;
   email: string;
   firstName: string;
+  isPrimary?: boolean | null;
   lastName: string;
   countryCode: string;
   phoneNumber: string;
@@ -25,7 +26,7 @@ export interface UpdateUserExtensionRequest {
   status?: UserStatus;
 }
 
-export interface UserExtensionResponse {
+export interface UserExtensionDetailResponse {
   id: string;
   username: string;
   email: string;
@@ -36,6 +37,8 @@ export interface UserExtensionResponse {
   phoneNumber?: string;
   phoneNumberVerified: boolean;
   keycloakUserId: string;
+  organizationId?: string;
+  branchId?: string;
   status: UserStatus;
   createdAt: string;
   updatedAt: string;
@@ -68,7 +71,6 @@ export interface UserProfileResponse {
   activeMembership: MembershipResponse;
   memberships: MembershipResponse[];
   createdAt: string;
-  updatedAt: string;
 }
 
 export interface SignupRequest {

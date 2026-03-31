@@ -5,9 +5,7 @@ const userRoleValues = Object.values(UserRole) as [UserRole, ...UserRole[]];
 
 export const createMembershipSchema = z.object({
   organizationId: z.string().min(1, "Organization is required"),
-  organizationName: z.string().min(1, "Organization name is required"),
   branchId: z.string().optional(),
-  branchName: z.string().min(1, "Branch name is required"),
   roles: z
     .array(
       z.enum(userRoleValues, {

@@ -1,28 +1,20 @@
-// components - branches
+// components
 export * from "./components/organizations/branches/detail-form";
 export * from "./components/organizations/branches/filters";
 export * from "./components/organizations/branches/form";
 export * from "./components/organizations/branches/operating-hours-form";
 export * from "./components/organizations/branches/status-badge";
-
-// components - documents
 export * from "./components/documents/document-card";
 export * from "./components/documents/document-preview-sheet";
 export * from "./components/documents/required-documents";
 export * from "./components/documents/status-badge";
 export * from "./components/documents/upload-card";
-
-// components - organizations
 export * from "./components/organizations/branch-search";
 export * from "./components/organizations/compliance-badge";
 export * from "./components/organizations/update-form";
 export * from "./components/organizations/filters";
 export * from "./components/organizations/search";
 export * from "./components/organizations/status-badge";
-
-// components - outbox
-export * from "./components/outbox/filters";
-export * from "./components/outbox/outbox-status-badge";
 
 // hooks
 export * from "./hooks/use-required-documents";
@@ -41,7 +33,6 @@ export * from "./types/branches";
 export * from "./types/documents";
 export * from "./types/enums";
 export * from "./types/organizations";
-export * from "./types/outbox";
 
 // utilities
 export * from "./utilities/document-helpers";

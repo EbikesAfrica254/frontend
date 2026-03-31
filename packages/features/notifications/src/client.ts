@@ -3,7 +3,6 @@ export * from "./components/deliveries/status-badge";
 export * from "./components/notifications/filters";
 export * from "./components/notifications/message-body-preview";
 export * from "./components/notifications/status-badge";
-export * from "./components/outbox/filters";
 export * from "./components/preferences/organization-filters";
 export * from "./components/preferences/organization-form";
 export * from "./components/preferences/organization-preferences-matrix";
@@ -25,7 +24,6 @@ export * from "./hooks/use-notifications-params";
 // lib
 export * from "./lib/notifications-params-parser";
 export * from "./lib/organization-preferences-params-parser";
-export * from "./lib/outbox-params-parser";
 export * from "./lib/templates-params-parser";
 export * from "./lib/user-preferences-params-parser";
 

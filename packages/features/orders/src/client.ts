@@ -14,8 +14,6 @@ export * from "./components/orders/cancel-form";
 export * from "./components/orders/create-form";
 export * from "./components/orders/filters";
 export * from "./components/orders/status-badge";
-export * from "./components/outbox/filters";
-export * from "./components/outbox/status-badge";
 export * from "./components/reassignments/filters";
 export * from "./components/reassignments/form";
 export * from "./components/reassignments/status-badge";

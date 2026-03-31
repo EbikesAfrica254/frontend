@@ -9,7 +9,7 @@ import {
   CreateUserRequest,
   SignupRequest,
   UpdateUserExtensionRequest,
-  UserExtensionResponse,
+  UserExtensionDetailResponse,
   UserExtensionSummaryResponse,
   UserProfileResponse,
 } from "../types/users";
@@ -53,8 +53,8 @@ export async function getCurrentUserResource(): Promise<
 
 export async function getUserResource(
   id: string,
-): Promise<SuccessResponse<UserExtensionResponse>> {
-  return authenticatedIamFetch<SuccessResponse<UserExtensionResponse>>(
+): Promise<SuccessResponse<UserExtensionDetailResponse>> {
+  return authenticatedIamFetch<SuccessResponse<UserExtensionDetailResponse>>(
     `/users/${id}`,
   );
 }
@@ -87,8 +87,8 @@ export async function signupResource(
 export async function updateUserResource(
   id: string,
   data: UpdateUserExtensionRequest,
-): Promise<SuccessResponse<UserExtensionResponse>> {
-  return authenticatedIamFetch<SuccessResponse<UserExtensionResponse>>(
+): Promise<SuccessResponse<UserExtensionDetailResponse>> {
+  return authenticatedIamFetch<SuccessResponse<UserExtensionDetailResponse>>(
     `/users/${id}`,
     {
       method: "PUT",
