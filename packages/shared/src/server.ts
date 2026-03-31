@@ -16,6 +16,7 @@ export * from "./types/enums";
 export * from "./types/filters";
 export * from "./types/geocoding";
 export * from "./types/network-errors";
+export * from "./types/outbox";
 export * from "./types/requests";
 
 // utilities

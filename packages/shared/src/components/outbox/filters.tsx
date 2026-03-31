@@ -7,7 +7,7 @@ import { FilterSelect } from "@repo/ui/tables/filter-select";
 import { FilterDateTimePicker } from "@repo/ui/tables/filter-date-time-picker";
 import { outboxParamsParser } from "../../lib/outbox-params-parser";
 import React from "react";
-import {OutboxStatus} from "../../types/outbox";
+import { OutboxStatus } from "../../types/outbox";
 
 const STATUS_OPTIONS = Object.values(OutboxStatus).map((status) => ({
   label: status.charAt(0) + status.slice(1).toLowerCase(),

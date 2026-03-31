@@ -10,7 +10,7 @@ export function loadDockerSecrets(secrets: Record<string, string>): void {
       process.env[envVar] = value;
     } catch (err) {
       throw new Error(
-          `Failed to load secret for ${envVar} from ${secretPath}: ${String(err)}`,
+        `Failed to load secret for ${envVar} from ${secretPath}: ${String(err)}`,
       );
     }
   }
