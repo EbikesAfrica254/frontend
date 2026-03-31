@@ -1,4 +1,3 @@
-// agents-table.tsx
 "use client";
 
 import { useTransition } from "react";
