@@ -15,7 +15,9 @@ export async function register() {
       if (!value) throw new Error(`Secret file is empty: ${secretPath}`);
       process.env[envVar] = value;
     } catch (err) {
-      throw new Error(`Failed to load secret for ${envVar} from ${secretPath}: ${String(err)}`);
+      throw new Error(
+        `Failed to load secret for ${envVar} from ${secretPath}: ${String(err)}`,
+      );
     }
   }
 }
