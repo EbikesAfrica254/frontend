@@ -1,6 +1,5 @@
 // components
 export * from "./components/notifications/approval-notification-item";
-export * from "./components/outbox/filters";
 export * from "./components/requests/approval-action-buttons";
 export * from "./components/requests/approval-changes-table";
 export * from "./components/requests/approval-request-card";
