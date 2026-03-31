@@ -1,11 +1,15 @@
-import { OutboxStatus } from "./enums";
+export enum OutboxStatus {
+  DEAD_LETTER = "DEAD_LETTER",
+  PENDING = "PENDING",
+  SENT = "SENT",
+  FAILED = "FAILED",
+}
 
 export interface OutboxResponse {
   id: string;
   createdAt: string;
   eventType: string;
   retryCount: number;
-  routingKey: string;
   status: OutboxStatus;
   updatedAt: string;
 }
