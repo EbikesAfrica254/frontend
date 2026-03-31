@@ -16,15 +16,15 @@ export default async function OutboxPage({ searchParams }: OutboxPageProps) {
 
   const response = await searchOutboxEventsResource(queryString);
   return (
-      <div className="space-y-6 p-4">
-        <OutboxFilters />
-        <OutboxTable
-            data={response.data}
-            pageCount={response.totalPages}
-            totalElements={response.totalElements}
-            onRetry={retryFailedEvent}
-            onRetryAll={retryAllFailedEvents}
-        />
-      </div>
+    <div className="space-y-6 p-4">
+      <OutboxFilters />
+      <OutboxTable
+        data={response.data}
+        pageCount={response.totalPages}
+        totalElements={response.totalElements}
+        onRetry={retryFailedEvent}
+        onRetryAll={retryAllFailedEvents}
+      />
+    </div>
   );
 }
