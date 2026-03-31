@@ -1,7 +1,7 @@
 import "server-only";
-import {auth} from "@repo/features-auth/server";
-import {UserRole} from "@repo/shared/client";
-import type {OwnerAssignmentPolicy,} from "../components/organizations/wizard/create-organization-wizard";
+import { auth } from "@repo/features-auth/server";
+import { UserRole } from "@repo/shared/client";
+import type { OwnerAssignmentPolicy } from "../components/organizations/wizard/create-organization-wizard";
 
 function hasAnyRole(userRoles: string[] | undefined, roles: readonly string[]) {
   if (!userRoles?.length) return false;
