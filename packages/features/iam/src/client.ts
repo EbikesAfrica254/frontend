@@ -1,6 +1,6 @@
 // components
 export * from "./components/memberships/form";
-export * from "./components/memberships/roles-form";
+export * from "./components/memberships/updates-roles-form";
 export * from "./components/users/detail-form";
 export * from "./components/users/filters";
 export * from "./components/users/search";

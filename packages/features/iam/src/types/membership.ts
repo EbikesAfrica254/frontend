@@ -8,7 +8,7 @@ export interface MembershipResponse {
   keycloakGroupPath: string;
   keycloakUserId: string;
   organizationId: string;
-  organizationName?: string;
+  organizationName: string;
   roles: string[];
   userExtensionId: string;
 }

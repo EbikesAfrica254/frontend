@@ -10,36 +10,17 @@ import {
 } from "../../schemas/membership-schemas";
 import React from "react";
 import { UserRole } from "@repo/shared/client";
+import { roleLabels } from "../../utilities/role-helpers";
 
-interface MembershipRolesFormProps {
+interface UpdateMembershipRolesFormProps {
   currentRoles: string[];
   onSubmit: (data: UpdateMembershipRolesFormData) => void | Promise<void>;
 }
 
-const roleLabels: Record<string, string> = {
-  AGENT: "Agent",
-  BRANCH_ADMIN: "Branch Admin",
-  BRANCH_OPERATOR: "Branch Operator",
-  BRANCH_CHECKER: "Branch Checker",
-  BRANCH_FLEET_MANAGER: "Branch Fleet Manager",
-  BRANCH_FLEET_SUPPORT: "Branch Fleet Support",
-  BRANCH_INVENTORY_MANAGER: "Branch Inventory Manager",
-  BRANCH_MAKER: "Branch Maker",
-  CUSTOMER: "Customer",
-  ORGANIZATION_ADMIN: "Organization Admin",
-  ORGANIZATION_CHECKER: "Organization Checker",
-  ORGANIZATION_OPERATOR: "Organization Operator",
-  ORGANIZATION_FLEET_MANAGER: "Organization Fleet Manager",
-  ORGANIZATION_FLEET_SUPPORT: "Organization Fleet Support",
-  ORGANIZATION_INVENTORY_MANAGER: "Organization Inventory Manager",
-  ORGANIZATION_MAKER: "Organization Maker",
-  SYSTEM_ADMIN: "System Admin",
-};
-
-export function MembershipRolesForm({
+export function UpdateMembershipRolesForm({
   currentRoles,
   onSubmit,
-}: MembershipRolesFormProps) {
+}: UpdateMembershipRolesFormProps) {
   const {
     control,
     formState: { errors, isSubmitting },
@@ -76,7 +57,7 @@ export function MembershipRolesForm({
                     }}
                     disabled={isSubmitting}
                   />
-                  <span className="text-sm">{roleLabels[role] || role}</span>
+                  <span className="text-sm">{roleLabels[role] ?? role}</span>
                 </label>
               ))}
             </div>
@@ -86,7 +67,6 @@ export function MembershipRolesForm({
           <p className="text-sm text-red-600">{errors.roles.message}</p>
         )}
       </div>
-
       <Button type="submit" disabled={isSubmitting} className="w-full">
         {isSubmitting ? "Updating..." : "Update Roles"}
       </Button>
