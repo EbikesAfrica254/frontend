@@ -26,21 +26,21 @@
   },
   "dependencies": {
     "@repo/ui": "workspace:*",
-    "lucide-react": "^0.562.0",
-    "next": "16.1.7",
+    "lucide-react": "^1.16.0",
+    "next": "16.2.6",
     "nuqs": "^2.8.6",
     "sonner": "^2.0.7",
-    "zod": "^4.2.1"
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
-    "@types/node": "^20",
-    "@types/react": "19.2.2",
-    "eslint": "^9",
-    "next": "16.1.7",
-    "react": "^19.2.0",
-    "typescript": "^5.7.2"
+    "@types/node": "^25",
+    "@types/react": "19.2.14",
+    "eslint": "^10",
+    "next": "16.2.6",
+    "react": "^19.2.6",
+    "typescript": "^6.0.3"
   },
   "sideEffects": [
     "**/*.css"
